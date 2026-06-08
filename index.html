@@ -327,9 +327,9 @@
                     <p class="text-on-surface-variant text-xs mt-0.5">Required for solar installation grants.</p>
                 </div>
             </div>
-            <button id="homeowner-toggle" class="relative inline-flex h-8 w-14 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none bg-gray-300 transition-colors duration-200 ease-in-out" onclick="toggleHomeownership(event)">
+            <button id="homeowner-toggle" type="button" class="relative inline-flex h-8 w-14 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none bg-gray-300 transition-colors duration-200 ease-in-out">
                 <span class="sr-only">Toggle Homeownership</span>
-                <span class="pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out translate-x-0"></span>
+                <span id="homeowner-knob" class="pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out translate-x-0"></span>
             </button>
         </section>
         <div class="mt-auto flex flex-col items-center gap-6 pb-10">
@@ -579,40 +579,40 @@
         <form class="space-y-12">
             <section>
                 <h3 class="text-label-sm font-bold tracking-[0.1em] text-primary mb-6 uppercase">Installation Timeline</h3>
-                <div class="grid grid-cols-1 gap-3">
-                    <label class="timeline group cursor-pointer relative flex items-center p-6 rounded-xl bg-surface-container-lowest border-2 border-primary transition-all duration-300">
-                        <input checked="" class="hidden peer" name="timeline" type="radio" value="immediate">
+                <div class="grid grid-cols-1 gap-3" id="timeline-group">
+                    <label class="timeline-option group cursor-pointer relative flex items-center p-6 rounded-xl bg-surface-container-lowest border-2 border-primary transition-all duration-300" data-value="immediate">
+                        <input checked="" class="hidden" name="timeline" type="radio" value="immediate">
                         <div class="w-full flex justify-between items-center">
                             <div>
                                 <p class="font-semibold text-primary">Immediately</p>
                                 <p class="text-sm text-primary/60">Ready to start within 30 days</p>
                             </div>
-                            <div class="w-6 h-6 rounded-full border-2 border-primary bg-primary flex items-center justify-center transition-colors">
-                                <div class="w-2 h-2 rounded-full bg-white opacity-100"></div>
+                            <div class="timeline-circle w-6 h-6 rounded-full border-2 border-primary bg-primary flex items-center justify-center transition-colors">
+                                <div class="timeline-dot w-2 h-2 rounded-full bg-white opacity-100"></div>
                             </div>
                         </div>
                     </label>
-                    <label class="timeline group cursor-pointer relative flex items-center p-6 rounded-xl bg-surface-container-lowest border-2 border-outline-variant hover:border-primary/40 transition-all duration-300">
-                        <input class="hidden peer" name="timeline" type="radio" value="quarter">
+                    <label class="timeline-option group cursor-pointer relative flex items-center p-6 rounded-xl bg-surface-container-lowest border-2 border-outline-variant hover:border-primary/40 transition-all duration-300" data-value="quarter">
+                        <input class="hidden" name="timeline" type="radio" value="quarter">
                         <div class="w-full flex justify-between items-center">
                             <div>
                                 <p class="font-semibold text-primary">This Quarter</p>
                                 <p class="text-sm text-primary/60">Planning for the next 3 months</p>
                             </div>
-                            <div class="w-6 h-6 rounded-full border-2 border-outline-variant hover:border-primary peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center transition-colors">
-                                <div class="w-2 h-2 rounded-full bg-white opacity-0 peer-checked:opacity-100"></div>
+                            <div class="timeline-circle w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center transition-colors">
+                                <div class="timeline-dot w-2 h-2 rounded-full bg-white opacity-0"></div>
                             </div>
                         </div>
                     </label>
-                    <label class="timeline group cursor-pointer relative flex items-center p-6 rounded-xl bg-surface-container-lowest border-2 border-outline-variant hover:border-primary/40 transition-all duration-300">
-                        <input class="hidden peer" name="timeline" type="radio" value="future">
+                    <label class="timeline-option group cursor-pointer relative flex items-center p-6 rounded-xl bg-surface-container-lowest border-2 border-outline-variant hover:border-primary/40 transition-all duration-300" data-value="future">
+                        <input class="hidden" name="timeline" type="radio" value="future">
                         <div class="w-full flex justify-between items-center">
                             <div>
                                 <p class="font-semibold text-primary">Future Research</p>
                                 <p class="text-sm text-primary/60">Looking at 6+ months ahead</p>
                             </div>
-                            <div class="w-6 h-6 rounded-full border-2 border-outline-variant hover:border-primary peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center transition-colors">
-                                <div class="w-2 h-2 rounded-full bg-white opacity-0 peer-checked:opacity-100"></div>
+                            <div class="timeline-circle w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center transition-colors">
+                                <div class="timeline-dot w-2 h-2 rounded-full bg-white opacity-0"></div>
                             </div>
                         </div>
                     </label>
@@ -897,8 +897,43 @@
             });
         }
 
-        // Timeline Radio Buttons - Tailwind peer-checked classes handle visual feedback automatically
-        // No additional JavaScript needed
+        // Timeline Selection - JavaScript controlled (peer-checked doesn't work on nested elements)
+        const timelineOptions = document.querySelectorAll('.timeline-option');
+        timelineOptions.forEach(option => {
+            option.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Reset all options to unselected
+                timelineOptions.forEach(opt => {
+                    opt.classList.remove('border-primary');
+                    opt.classList.add('border-outline-variant');
+                    
+                    const circle = opt.querySelector('.timeline-circle');
+                    const dot = opt.querySelector('.timeline-dot');
+                    circle.classList.remove('border-primary', 'bg-primary');
+                    circle.classList.add('border-outline-variant');
+                    dot.classList.remove('opacity-100');
+                    dot.classList.add('opacity-0');
+                    
+                    // Uncheck radio
+                    opt.querySelector('input[type="radio"]').checked = false;
+                });
+                
+                // Select this option
+                this.classList.remove('border-outline-variant');
+                this.classList.add('border-primary');
+                
+                const circle = this.querySelector('.timeline-circle');
+                const dot = this.querySelector('.timeline-dot');
+                circle.classList.remove('border-outline-variant');
+                circle.classList.add('border-primary', 'bg-primary');
+                dot.classList.remove('opacity-0');
+                dot.classList.add('opacity-100');
+                
+                // Check radio
+                this.querySelector('input[type="radio"]').checked = true;
+            });
+        });
 
         // Delivery Method Tabs - Add click handlers
         const deliveryRadios = document.querySelectorAll('input[name="delivery"]');
@@ -923,13 +958,6 @@
             });
         });
     });
-
-    function toggleHomeownership() {
-        const toggle = document.getElementById('homeowner-toggle');
-        if (toggle) {
-            toggle.click();
-        }
-    }
 </script>
 </body>
 </html>
