@@ -477,7 +477,7 @@
                     </div>
                 </div>
                 <div class="relative flex items-center">
-                    <input checked="" class="custom-checkbox sr-only" type="checkbox">
+                    <input class="custom-checkbox interest-checkbox sr-only" type="checkbox" data-interest="battery">
                     <div class="w-6 h-6 border-2 border-primary/20 rounded-md flex items-center justify-center transition-all duration-200 bg-transparent">
                         <span class="material-symbols-outlined text-white text-sm hidden" style="font-variation-settings: 'FILL' 1;">check</span>
                     </div>
@@ -494,7 +494,7 @@
                     </div>
                 </div>
                 <div class="relative flex items-center">
-                    <input class="custom-checkbox sr-only" type="checkbox">
+                    <input class="custom-checkbox interest-checkbox sr-only" type="checkbox" data-interest="ev">
                     <div class="w-6 h-6 border-2 border-primary/20 rounded-md flex items-center justify-center transition-all duration-200 bg-transparent">
                         <span class="material-symbols-outlined text-white text-sm hidden" style="font-variation-settings: 'FILL' 1;">check</span>
                     </div>
@@ -511,7 +511,7 @@
                     </div>
                 </div>
                 <div class="relative flex items-center">
-                    <input class="custom-checkbox sr-only" type="checkbox">
+                    <input class="custom-checkbox interest-checkbox sr-only" type="checkbox" data-interest="monitoring">
                     <div class="w-6 h-6 border-2 border-primary/20 rounded-md flex items-center justify-center transition-all duration-200 bg-transparent">
                         <span class="material-symbols-outlined text-white text-sm hidden" style="font-variation-settings: 'FILL' 1;">check</span>
                     </div>
@@ -528,7 +528,7 @@
                     </div>
                 </div>
                 <div class="relative flex items-center">
-                    <input class="custom-checkbox sr-only" type="checkbox">
+                    <input class="custom-checkbox interest-checkbox sr-only" type="checkbox" data-interest="hvac">
                     <div class="w-6 h-6 border-2 border-primary/20 rounded-md flex items-center justify-center transition-all duration-200 bg-transparent">
                         <span class="material-symbols-outlined text-white text-sm hidden" style="font-variation-settings: 'FILL' 1;">check</span>
                     </div>
@@ -632,8 +632,8 @@
                         </label>
                     </div>
                     <div class="relative group">
-                        <input class="peer block w-full px-6 py-5 bg-surface-container-lowest border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary/20 rounded-xl transition-all placeholder-transparent text-primary font-medium" id="contact" placeholder=" " type="text">
-                        <label class="absolute left-6 top-5 text-primary/40 text-sm transition-all peer-focus:text-xs peer-focus:-top-2.5 peer-focus:left-4 peer-focus:px-2 peer-focus:bg-white peer-placeholder-shown:text-sm peer-placeholder-shown:top-5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:left-4 peer-not-placeholder-shown:px-2 peer-not-placeholder-shown:bg-white" for="contact">Enter your contact info</label>
+                        <input class="peer block w-full px-6 py-5 bg-surface-container-lowest border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary/20 rounded-xl transition-all placeholder-transparent text-primary font-medium" id="contact-input" placeholder=" " type="text">
+                        <label class="absolute left-6 top-5 text-primary/40 text-sm transition-all peer-focus:text-xs peer-focus:-top-2.5 peer-focus:left-4 peer-focus:px-2 peer-focus:bg-white peer-placeholder-shown:text-sm peer-placeholder-shown:top-5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:left-4 peer-not-placeholder-shown:px-2 peer-not-placeholder-shown:bg-white" for="contact-input">Enter your contact info</label>
                     </div>
                 </div>
                 <label class="flex gap-4 cursor-pointer group pt-4">
@@ -730,13 +730,13 @@
         </div>
         <div class="space-y-6 max-w-md">
             <h1 class="font-display text-[2.75rem] leading-[1.1] text-primary-container tracking-tight">Your Report is Ready</h1>
-            <p class="text-secondary text-lg leading-relaxed font-light px-4">2480 Skyline Drive<br>San Francisco, CA</p>
+            <p class="text-secondary text-lg leading-relaxed font-light px-4" id="report-address">2480 Skyline Drive<br>San Francisco, CA</p>
             <div class="flex flex-col gap-4 pt-8 px-2">
-                <button class="luxury-gradient text-white font-semibold text-lg py-5 px-8 rounded-full shadow-2xl shadow-primary-container/20 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3">
+                <button id="report-view-btn" class="luxury-gradient text-white font-semibold text-lg py-5 px-8 rounded-full shadow-2xl shadow-primary-container/20 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3">
                     View Full Report
                     <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </button>
-                <button class="bg-transparent border border-outline-variant/30 text-primary font-medium text-lg py-5 px-8 rounded-full hover:bg-surface-container-low transition-colors duration-300 flex items-center justify-center gap-3">
+                <button id="report-download-btn" class="bg-transparent border border-outline-variant/30 text-primary font-medium text-lg py-5 px-8 rounded-full hover:bg-surface-container-low transition-colors duration-300 flex items-center justify-center gap-3">
                     <span class="material-symbols-outlined">download</span>
                     Download PDF
                 </button>
@@ -777,15 +777,163 @@
     let currentStep = 1;
     const totalSteps = 7;
 
+    // Webhook endpoint (Make.com)
+    const WEBHOOK_URL = 'https://hook.eu1.make.com/ulukt6m2jehymtbbamsxex743nfwyqe5';
+
+    // Collected form data
+    const submission = {
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+        roof_type: '',
+        roof_age: '',
+        photo_url: '',
+        energy_motivation: 'ecological',
+        utility_bill: '325',
+        monthly_usage_kwh: '',
+        homeowner: false,
+        battery_interest: false,
+        ev_interest: false,
+        monitoring_interest: false,
+        hvac_interest: false,
+        timeline: 'immediate',
+        delivery_method: 'email',
+        contact_info: ''
+    };
+
     function nextStep() {
+        // Capture data from the current step before moving on
+        if (currentStep === 1) {
+            submission.name = document.getElementById('name-input').value.trim();
+            submission.email = document.getElementById('email-input').value.trim();
+            submission.phone = document.getElementById('phone-input').value.trim();
+            submission.address = document.getElementById('address-input').value.trim();
+
+            if (!submission.name || !submission.email || !submission.phone || !submission.address) {
+                alert('Please fill in your name, email, phone, and address.');
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(submission.email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+        }
+
+        if (currentStep === 2) {
+            submission.utility_bill = document.getElementById('bill-slider').value;
+            submission.monthly_usage_kwh = document.getElementById('usage-input').value.trim();
+        }
+
+        if (currentStep === 3) {
+            submission.roof_age = document.getElementById('roof-age').value;
+            submission.roof_type = document.getElementById('roof-type').value;
+
+            if (!submission.roof_age || !submission.roof_type) {
+                alert('Please select your roof age and roof type.');
+                return;
+            }
+        }
+
+        // Step 5 is the final step -> submit
         if (currentStep === 5) {
-            showStep('loading');
-            setTimeout(() => {
-                showStep('report');
-            }, 3000);
-        } else if (currentStep < totalSteps) {
+            submitForm();
+            return;
+        }
+
+        if (currentStep < totalSteps) {
             currentStep++;
             showStep(currentStep);
+        }
+    }
+
+    async function submitForm() {
+        // Capture Step 5 fields
+        submission.contact_info = document.getElementById('contact-input') ? document.getElementById('contact-input').value.trim() : '';
+        const consentEl = document.getElementById('consent-checkbox');
+        if (consentEl && !consentEl.checked) {
+            alert('Please agree to receive your personalized solar report.');
+            return;
+        }
+
+        // Show loading screen
+        showStep('loading');
+
+        try {
+            // Upload photo to Vercel Blob first (if one was selected)
+            const photoInput = document.getElementById('photo-upload-input');
+            if (photoInput && photoInput.files && photoInput.files[0]) {
+                const photoUrl = await uploadPhotoToVercelBlob(photoInput.files[0]);
+                if (photoUrl) submission.photo_url = photoUrl;
+            }
+
+            // Submit to Make.com webhook
+            const response = await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(submission)
+            });
+
+            const responseText = await response.text();
+            let pdfUrl = null;
+
+            try {
+                const result = JSON.parse(responseText.trim());
+                if (Array.isArray(result) && result.length > 0) {
+                    const webhookData = result[0];
+                    if (webhookData.body && String(webhookData.body).startsWith('http')) {
+                        pdfUrl = webhookData.body;
+                    }
+                } else if (result.body && String(result.body).startsWith('http')) {
+                    pdfUrl = result.body;
+                }
+            } catch (parseErr) {
+                // Response might be a plain URL string
+                if (responseText.trim().startsWith('http')) {
+                    pdfUrl = responseText.trim();
+                }
+            }
+
+            // Populate report page
+            showReport(pdfUrl);
+        } catch (error) {
+            console.error('Submission error:', error);
+            alert('Something went wrong while generating your report. Please try again.');
+            currentStep = 5;
+            showStep(5);
+        }
+    }
+
+    async function uploadPhotoToVercelBlob(file) {
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+            const response = await fetch('/api/upload-photo', {
+                method: 'POST',
+                body: formData
+            });
+            if (!response.ok) return null;
+            const data = await response.json();
+            return data.url || null;
+        } catch (err) {
+            console.error('Photo upload failed:', err);
+            return null;
+        }
+    }
+
+    function showReport(pdfUrl) {
+        showStep('report');
+
+        // Address on report page
+        const addressEl = document.getElementById('report-address');
+        if (addressEl) addressEl.textContent = submission.address || '';
+
+        // Wire up the PDF buttons if we got a URL back
+        if (pdfUrl) {
+            const viewBtn = document.getElementById('report-view-btn');
+            const downloadBtn = document.getElementById('report-download-btn');
+            if (viewBtn) viewBtn.onclick = () => window.open(pdfUrl, '_blank');
+            if (downloadBtn) downloadBtn.onclick = () => window.open(pdfUrl, '_blank');
         }
     }
 
@@ -854,6 +1002,9 @@
                 heading.classList.remove('text-primary');
                 text.classList.add('text-white/70');
                 text.classList.remove('text-on-surface-variant');
+
+                // Store selected motivation value
+                submission.energy_motivation = this.getAttribute('data-motivation') || '';
             });
         });
 
@@ -885,6 +1036,7 @@
                     this.classList.add('bg-gray-300');
                     homeownerKnob.style.transform = 'translateX(0px)';
                 }
+                submission.homeowner = homeownerOn;
             });
         }
 
@@ -923,6 +1075,9 @@
                 
                 // Check radio
                 this.querySelector('input[type="radio"]').checked = true;
+
+                // Store timeline value
+                submission.timeline = this.getAttribute('data-value') || '';
             });
         });
 
@@ -946,6 +1101,35 @@
                     parentLabel.querySelector('span').classList.remove('text-primary/60');
                     parentLabel.querySelector('span').classList.add('text-primary');
                 }
+
+                // Store delivery method value
+                submission.delivery_method = this.value;
+            });
+        });
+
+        // Interest Checkboxes (Step 4) - toggle visual + store value
+        const interestCheckboxes = document.querySelectorAll('.interest-checkbox');
+        interestCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const box = this.nextElementSibling; // the visible div
+                const check = box.querySelector('span');
+                const interest = this.getAttribute('data-interest');
+
+                if (this.checked) {
+                    box.classList.remove('border-primary/20', 'bg-transparent');
+                    box.classList.add('bg-primary', 'border-primary');
+                    check.classList.remove('hidden');
+                } else {
+                    box.classList.add('border-primary/20', 'bg-transparent');
+                    box.classList.remove('bg-primary', 'border-primary');
+                    check.classList.add('hidden');
+                }
+
+                // Store value
+                if (interest === 'battery') submission.battery_interest = this.checked;
+                else if (interest === 'ev') submission.ev_interest = this.checked;
+                else if (interest === 'monitoring') submission.monitoring_interest = this.checked;
+                else if (interest === 'hvac') submission.hvac_interest = this.checked;
             });
         });
     });
