@@ -376,7 +376,7 @@
                     <div class="space-y-3">
                         <label class="text-[0.6875rem] font-bold tracking-[0.1em] text-on-surface uppercase px-1">Current Roof Age</label>
                         <div class="relative group">
-                            <select class="custom-select w-full bg-surface-container-low border-2 border-transparent rounded-full py-4 px-6 text-on-surface focus:ring-2 focus:ring-primary/10 focus:bg-white focus:border-primary/20 transition-all cursor-pointer font-medium">
+                            <select id="roof-age" class="custom-select w-full bg-surface-container-low border-2 border-transparent rounded-full py-4 px-6 text-on-surface focus:ring-2 focus:ring-primary/10 focus:bg-white focus:border-primary/20 transition-all cursor-pointer font-medium">
                                 <option disabled="" selected="" value="">Select age range</option>
                                 <option value="0-5">0 - 5 Years (Excellent)</option>
                                 <option value="5-15">5 - 15 Years (Good)</option>
@@ -388,7 +388,7 @@
                     <div class="space-y-3">
                         <label class="text-[0.6875rem] font-bold tracking-[0.1em] text-on-surface uppercase px-1">Structural Material</label>
                         <div class="relative group">
-                            <select class="custom-select w-full bg-surface-container-low border-2 border-transparent rounded-full py-4 px-6 text-on-surface focus:ring-2 focus:ring-primary/10 focus:bg-white focus:border-primary/20 transition-all cursor-pointer font-medium">
+                            <select id="roof-type" class="custom-select w-full bg-surface-container-low border-2 border-transparent rounded-full py-4 px-6 text-on-surface focus:ring-2 focus:ring-primary/10 focus:bg-white focus:border-primary/20 transition-all cursor-pointer font-medium">
                                 <option disabled="" selected="" value="">Select roof type</option>
                                 <option value="asphalt">Asphalt Shingles</option>
                                 <option value="metal">Architectural Metal</option>
@@ -400,7 +400,7 @@
                     </div>
                 </div>
                 <div class="pt-4">
-                    <div class="bg-surface-container-low rounded-xl p-8 border-2 border-dashed border-primary/10 flex flex-col items-center text-center space-y-4 group cursor-pointer hover:bg-surface-container hover:border-primary/30 transition-all duration-300" onclick="document.getElementById('photo-upload-input').click()">
+                    <div id="photo-dropzone" class="bg-surface-container-low rounded-xl p-8 border-2 border-dashed border-primary/10 flex flex-col items-center text-center space-y-4 group cursor-pointer hover:bg-surface-container hover:border-primary/30 transition-all duration-300" onclick="document.getElementById('photo-upload-input').click()">
                         <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
                             <span class="material-symbols-outlined text-primary text-3xl" data-icon="add_a_photo">add_a_photo</span>
                         </div>
@@ -409,6 +409,14 @@
                             <p class="text-sm text-on-surface/70 leading-relaxed">Optional: A clear view of your roof helps our architects optimize your layout. <span class="text-primary font-bold underline">Browse Files</span></p>
                         </div>
                         <input id="photo-upload-input" class="hidden" type="file" accept="image/*">
+                    </div>
+                    <!-- Photo preview (hidden until a photo is selected) -->
+                    <div id="photo-preview-wrap" class="hidden mt-4 relative rounded-xl overflow-hidden border border-primary/10">
+                        <img id="photo-preview-img" class="w-full max-h-64 object-cover" alt="Roof photo preview">
+                        <button type="button" onclick="removePhoto(event)" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors">
+                            <span class="material-symbols-outlined text-[20px]">close</span>
+                        </button>
+                        <div class="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs py-2 px-4 truncate" id="photo-filename"></div>
                     </div>
                 </div>
                 <div class="pt-8 space-y-6">
@@ -1130,7 +1138,47 @@
                 else if (interest === 'hvac') submission.hvac_interest = this.checked;
             });
         });
+
+        // Photo Upload Preview
+        const photoInput = document.getElementById('photo-upload-input');
+        if (photoInput) {
+            photoInput.addEventListener('change', function() {
+                const file = this.files && this.files[0];
+                const previewWrap = document.getElementById('photo-preview-wrap');
+                const previewImg = document.getElementById('photo-preview-img');
+                const filenameEl = document.getElementById('photo-filename');
+                const dropzone = document.getElementById('photo-dropzone');
+
+                if (file) {
+                    // Basic size guard (10MB)
+                    if (file.size > 10 * 1024 * 1024) {
+                        alert('Photo must be less than 10MB.');
+                        this.value = '';
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.src = e.target.result;
+                        previewWrap.classList.remove('hidden');
+                        if (filenameEl) filenameEl.textContent = file.name;
+                        if (dropzone) dropzone.classList.add('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
     });
+
+    // Remove selected photo (global so the inline onclick can reach it)
+    function removePhoto(e) {
+        if (e) e.stopPropagation();
+        const photoInput = document.getElementById('photo-upload-input');
+        const previewWrap = document.getElementById('photo-preview-wrap');
+        const dropzone = document.getElementById('photo-dropzone');
+        if (photoInput) photoInput.value = '';
+        if (previewWrap) previewWrap.classList.add('hidden');
+        if (dropzone) dropzone.classList.remove('hidden');
+    }
 </script>
 </body>
 </html>
