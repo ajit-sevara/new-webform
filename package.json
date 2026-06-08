@@ -1,0 +1,9 @@
+{
+  "name": "solarbuddy-webform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SolarBuddy multi-step solar assessment form",
+  "dependencies": {
+    "@vercel/blob": "^0.27.0"
+  }
+}
