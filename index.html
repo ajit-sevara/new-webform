@@ -158,30 +158,63 @@
         </div>
     </header>
     <main class="pb-12 px-6 max-w-xl mx-auto flex flex-col min-h-screen pt-4 flex-grow">
-        <section class="mt-4 mb-10">
-            <span class="font-label text-xs uppercase tracking-[0.2em] text-primary/60 mb-3 block">Solar Feasibility</span>
-            <h2 class="font-headline text-3xl font-extrabold text-primary leading-tight tracking-tight">Where are you located?</h2>
-            <p class="mt-4 text-primary/70 text-lg font-light leading-relaxed">We'll analyze your rooftop's sun exposure using high-resolution satellite imagery.</p>
+        <section class="mt-4 mb-12">
+            <span class="font-label text-xs uppercase tracking-[0.2em] text-primary/60 mb-3 block">Getting Started</span>
+            <h2 class="font-headline text-3xl font-extrabold text-primary leading-tight tracking-tight">Let's Get You Started</h2>
+            <p class="mt-4 text-primary/70 text-lg font-light leading-relaxed">We'll need some basic information and your location to analyze your solar potential.</p>
         </section>
-        <section class="space-y-10">
-            <div class="relative group">
-                <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                    <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors" data-icon="location_on">location_on</span>
+
+        <!-- SECTION 1: YOUR INFORMATION -->
+        <section class="mb-12">
+            <h3 class="font-label text-xs uppercase tracking-[0.2em] text-primary/60 mb-6 block font-bold">Your Information</h3>
+            <div class="space-y-4">
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                        <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors">person</span>
+                    </div>
+                    <input id="name-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Full Name" type="text">
                 </div>
-                <input class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Enter your street address" type="text">
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                        <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors">mail</span>
+                    </div>
+                    <input id="email-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Email Address" type="email">
+                </div>
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                        <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors">phone</span>
+                    </div>
+                    <input id="phone-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Mobile Number" type="tel">
+                </div>
             </div>
-            <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-black/5 ring-1 ring-black/5">
-                <div class="absolute inset-0 z-10 map-mask">
-                    <img alt="Satellite view of a lush residential neighborhood" class="w-full h-full object-cover grayscale-[20%] opacity-90" data-location="San Francisco" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAse-y0jA2Biwajp_J39hnWBarT44qPBsKy74mDMh7KbNSaKGF7hOF3iC7nDQDcGUWUjYd5RFcPr0LVJgwdUoantV9Ulq6oXAXifARQZTOwaVn_NN-9hUDdA2EMXcj52fkSGHzSXM0J2G5OaKqLZcj2hK7rF1kXQCuoT5eNqVCvxTbhDcmdVlInSxu16ZUPvpFzH68NFokD9rUHbfzLaNUpv817-sNQfYqFqOJhtuyOcTyMGbhQvBmIrBwBd0nrANDftavLXvSMaHQH">
+        </section>
+
+        <!-- SECTION 2: WHERE ARE YOU LOCATED -->
+        <section class="mb-10">
+            <h3 class="font-label text-xs uppercase tracking-[0.2em] text-primary/60 mb-6 block font-bold">Solar Feasibility</h3>
+            <p class="text-primary/70 text-lg font-light leading-relaxed mb-6">Where are you located? We'll analyze your rooftop's sun exposure using high-resolution satellite imagery.</p>
+            <div class="space-y-6">
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                        <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors" data-icon="location_on">location_on</span>
+                    </div>
+                    <input id="address-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Enter your street address" type="text">
                 </div>
-                <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent z-20"></div>
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
-                    <div class="w-14 h-14 rounded-full bg-primary/5 flex items-center justify-center">
-                        <div class="w-4 h-4 rounded-full bg-primary shadow-xl shadow-primary/40 animate-pulse"></div>
+                <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-black/5 ring-1 ring-black/5">
+                    <div class="absolute inset-0 z-10 map-mask">
+                        <img alt="Satellite view of a lush residential neighborhood" class="w-full h-full object-cover grayscale-[20%] opacity-90" data-location="San Francisco" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAse-y0jA2Biwajp_J39hnWBarT44qPBsKy74mDMh7KbNSaKGF7hOF3iC7nDQDcGUWUjYd5RFcPr0LVJgwdUoantV9Ulq6oXAXifARQZTOwaVn_NN-9hUDdA2EMXcj52fkSGHzSXM0J2G5OaKqLZcj2hK7rF1kXQCuoT5eNqVCvxTbhDcmdVlInSxu16ZUPvpFzH68NFokD9rUHbfzLaNUpv817-sNQfYqFqOJhtuyOcTyMGbhQvBmIrBwBd0nrANDftavLXvSMaHQH">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent z-20"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
+                        <div class="w-14 h-14 rounded-full bg-primary/5 flex items-center justify-center">
+                            <div class="w-4 h-4 rounded-full bg-primary shadow-xl shadow-primary/40 animate-pulse"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+        </section>
+
         <div class="mt-auto pt-10">
             <button onclick="nextStep()" class="w-full py-5 rounded-full soft-gradient-bg text-white font-headline font-bold text-lg flex items-center justify-center gap-2 active:scale-[0.98] transition-all shadow-xl shadow-primary/20 hover:brightness-110">
                 Continue to Assessment
@@ -218,8 +251,8 @@
             <h2 class="font-headline text-3xl md:text-4xl font-bold text-primary tracking-tight mb-6">What drives your energy transition?</h2>
             <p class="text-on-surface-variant text-lg leading-relaxed max-w-md">Your motivation helps us tailor the architectural solar layout that best fits your lifestyle and financial goals.</p>
         </section>
-        <div class="grid grid-cols-1 gap-4 mb-14">
-            <button class="group relative flex items-center p-6 bg-surface-container border border-outline/10 rounded-xl text-left transition-all duration-300 hover:border-primary/30 hover:shadow-sm">
+        <div class="grid grid-cols-1 gap-4 mb-14" id="motivation-cards">
+            <button class="motivation-btn group relative flex items-center p-6 bg-surface-container border border-outline/10 rounded-xl text-left transition-all duration-300 hover:border-primary/30 hover:shadow-sm" data-motivation="financial">
                 <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-primary text-white group-hover:scale-105 transition-transform duration-300">
                     <span class="material-symbols-outlined" data-icon="payments">payments</span>
                 </div>
@@ -231,7 +264,7 @@
                     <span class="material-symbols-outlined text-primary" data-icon="check_circle">check_circle</span>
                 </div>
             </button>
-            <button class="group relative flex items-center p-6 bg-primary rounded-xl text-left transition-all duration-300 shadow-lg shadow-primary/20">
+            <button class="motivation-btn group relative flex items-center p-6 bg-primary rounded-xl text-left transition-all duration-300 shadow-lg shadow-primary/20 selected" data-motivation="ecological">
                 <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 text-white">
                     <span class="material-symbols-outlined" data-icon="eco" style="font-variation-settings: 'FILL' 1;">eco</span>
                 </div>
@@ -243,7 +276,7 @@
                     <span class="material-symbols-outlined text-white" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
                 </div>
             </button>
-            <button class="group relative flex items-center p-6 bg-surface-container border border-outline/10 rounded-xl text-left transition-all duration-300 hover:border-primary/30 hover:shadow-sm">
+            <button class="motivation-btn group relative flex items-center p-6 bg-surface-container border border-outline/10 rounded-xl text-left transition-all duration-300 hover:border-primary/30 hover:shadow-sm" data-motivation="independence">
                 <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-primary text-white group-hover:scale-105 transition-transform duration-300">
                     <span class="material-symbols-outlined" data-icon="battery_charging_full">battery_charging_full</span>
                 </div>
@@ -263,16 +296,25 @@
                     <p class="text-on-surface-variant text-sm mt-1">Average estimate for the past 12 months.</p>
                 </div>
                 <div class="text-right">
-                    <span class="text-4xl font-bold font-headline text-primary">$325</span>
+                    <span class="text-4xl font-bold font-headline text-primary" id="bill-display">$325</span>
                     <span class="text-primary/60 text-xs font-bold block tracking-wider uppercase mt-1">USD / Month</span>
                 </div>
             </div>
             <div class="relative py-4">
-                <input class="w-full h-1.5 bg-primary/10 rounded-full appearance-none cursor-pointer" max="500" min="50" type="range" value="325">
+                <input id="bill-slider" class="w-full h-1.5 bg-primary/10 rounded-full appearance-none cursor-pointer" max="500" min="50" type="range" value="325">
                 <div class="flex justify-between mt-4 text-[10px] font-bold uppercase tracking-[0.2em] text-primary/40">
                     <span class="">$50</span>
                     <span class="">$500+</span>
                 </div>
+            </div>
+        </section>
+        <section class="mb-14 px-2">
+            <label class="text-[0.6875rem] font-bold tracking-[0.1em] text-primary/60 mb-3 block uppercase">Monthly Usage (kWh)</label>
+            <div class="relative group">
+                <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                    <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors">bolt</span>
+                </div>
+                <input id="usage-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Monthly electricity consumption in kWh" type="number" min="0">
             </div>
         </section>
         <section class="p-8 bg-surface-container border border-outline/5 rounded-2xl flex items-center justify-between mb-12">
@@ -285,9 +327,9 @@
                     <p class="text-on-surface-variant text-xs mt-0.5">Required for solar installation grants.</p>
                 </div>
             </div>
-            <button class="relative inline-flex h-8 w-14 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none bg-primary transition-colors duration-200 ease-in-out">
+            <button id="homeowner-toggle" class="relative inline-flex h-8 w-14 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none bg-gray-300 transition-colors duration-200 ease-in-out" onclick="toggleHomeownership(event)">
                 <span class="sr-only">Toggle Homeownership</span>
-                <span class="pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out translate-x-3"></span>
+                <span class="pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out translate-x-0"></span>
             </button>
         </section>
         <div class="mt-auto flex flex-col items-center gap-6 pb-10">
@@ -358,7 +400,7 @@
                     </div>
                 </div>
                 <div class="pt-4">
-                    <div class="bg-surface-container-low rounded-xl p-8 border-2 border-dashed border-primary/10 flex flex-col items-center text-center space-y-4 group cursor-pointer hover:bg-surface-container hover:border-primary/30 transition-all duration-300">
+                    <div class="bg-surface-container-low rounded-xl p-8 border-2 border-dashed border-primary/10 flex flex-col items-center text-center space-y-4 group cursor-pointer hover:bg-surface-container hover:border-primary/30 transition-all duration-300" onclick="document.getElementById('photo-upload-input').click()">
                         <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
                             <span class="material-symbols-outlined text-primary text-3xl" data-icon="add_a_photo">add_a_photo</span>
                         </div>
@@ -366,7 +408,7 @@
                             <h3 class="font-bold text-primary">Upload Property Photo</h3>
                             <p class="text-sm text-on-surface/70 leading-relaxed">Optional: A clear view of your roof helps our architects optimize your layout. <span class="text-primary font-bold underline">Browse Files</span></p>
                         </div>
-                        <input class="hidden" id="photo-upload" type="file">
+                        <input id="photo-upload-input" class="hidden" type="file" accept="image/*">
                     </div>
                 </div>
                 <div class="pt-8 space-y-6">
@@ -776,6 +818,79 @@
                 stepEl.classList.remove('hidden-step');
                 stepEl.classList.add('visible-step');
             }
+        }
+    }
+
+    // ===== UI INTERACTIONS =====
+
+    // Motivation Card Selection
+    document.addEventListener('DOMContentLoaded', () => {
+        const motivationCards = document.querySelectorAll('.motivation-btn');
+        
+        motivationCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove selected state from all cards
+                motivationCards.forEach(c => {
+                    c.classList.remove('bg-primary', 'shadow-lg', 'shadow-primary/20', 'selected');
+                    c.classList.add('bg-surface-container', 'border', 'border-outline/10');
+                    
+                    const heading = c.querySelector('h3');
+                    const text = c.querySelector('p');
+                    heading.classList.remove('text-white');
+                    heading.classList.add('text-primary');
+                    text.classList.remove('text-white/70');
+                    text.classList.add('text-on-surface-variant');
+                });
+                
+                // Add selected state to clicked card
+                this.classList.remove('bg-surface-container', 'border', 'border-outline/10');
+                this.classList.add('bg-primary', 'shadow-lg', 'shadow-primary/20', 'selected');
+                
+                const heading = this.querySelector('h3');
+                const text = this.querySelector('p');
+                heading.classList.add('text-white');
+                heading.classList.remove('text-primary');
+                text.classList.add('text-white/70');
+                text.classList.remove('text-on-surface-variant');
+            });
+        });
+
+        // Bill Slider Update
+        const billSlider = document.getElementById('bill-slider');
+        const billDisplay = document.getElementById('bill-display');
+        
+        if (billSlider) {
+            billSlider.addEventListener('input', function() {
+                billDisplay.textContent = '$' + this.value;
+            });
+        }
+
+        // Homeowner Toggle
+        const homeownerToggle = document.getElementById('homeowner-toggle');
+        if (homeownerToggle) {
+            homeownerToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleHomeownership();
+            });
+        }
+    });
+
+    function toggleHomeownership() {
+        const toggle = document.getElementById('homeowner-toggle');
+        const span = toggle.querySelector('span');
+        
+        if (toggle.classList.contains('bg-gray-300')) {
+            toggle.classList.remove('bg-gray-300');
+            toggle.classList.add('bg-primary');
+            span.classList.remove('translate-x-0');
+            span.classList.add('translate-x-3');
+        } else {
+            toggle.classList.remove('bg-primary');
+            toggle.classList.add('bg-gray-300');
+            span.classList.remove('translate-x-3');
+            span.classList.add('translate-x-0');
         }
     }
 </script>
