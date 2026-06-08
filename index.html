@@ -327,9 +327,9 @@
                     <p class="text-on-surface-variant text-xs mt-0.5">Required for solar installation grants.</p>
                 </div>
             </div>
-            <button id="homeowner-toggle" type="button" class="relative inline-flex h-8 w-14 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none bg-gray-300 transition-colors duration-200 ease-in-out">
+            <button id="homeowner-toggle" type="button" class="relative inline-flex h-8 w-14 flex-shrink-0 cursor-pointer items-center rounded-full focus:outline-none bg-gray-300 transition-colors duration-200 ease-in-out px-1">
                 <span class="sr-only">Toggle Homeownership</span>
-                <span id="homeowner-knob" class="pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out translate-x-0"></span>
+                <span id="homeowner-knob" class="pointer-events-none inline-block h-6 w-6 rounded-full bg-white shadow-lg ring-0 transition-transform duration-200 ease-in-out" style="transform: translateX(0px);"></span>
             </button>
         </section>
         <div class="mt-auto flex flex-col items-center gap-6 pb-10">
@@ -867,32 +867,23 @@
             });
         }
 
-        // Homeowner Toggle - FIXED AND WORKING
+        // Homeowner Toggle - using inline styles (guaranteed to work with Tailwind CDN)
         const homeownerToggle = document.getElementById('homeowner-toggle');
+        const homeownerKnob = document.getElementById('homeowner-knob');
+        let homeownerOn = false;
         
-        if (homeownerToggle) {
-            homeownerToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
+        if (homeownerToggle && homeownerKnob) {
+            homeownerToggle.addEventListener('click', function() {
+                homeownerOn = !homeownerOn;
                 
-                const span = this.querySelector('span');
-                
-                // Toggle background color
-                if (this.classList.contains('bg-gray-300')) {
+                if (homeownerOn) {
                     this.classList.remove('bg-gray-300');
                     this.classList.add('bg-primary');
+                    homeownerKnob.style.transform = 'translateX(24px)';
                 } else {
                     this.classList.remove('bg-primary');
                     this.classList.add('bg-gray-300');
-                }
-                
-                // Toggle span position
-                if (span.classList.contains('translate-x-0')) {
-                    span.classList.remove('translate-x-0');
-                    span.classList.add('translate-x-3');
-                } else {
-                    span.classList.remove('translate-x-3');
-                    span.classList.add('translate-x-0');
+                    homeownerKnob.style.transform = 'translateX(0px)';
                 }
             });
         }
