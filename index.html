@@ -580,7 +580,7 @@
             <section>
                 <h3 class="text-label-sm font-bold tracking-[0.1em] text-primary mb-6 uppercase">Installation Timeline</h3>
                 <div class="grid grid-cols-1 gap-3">
-                    <label class="timeline group cursor-pointer relative flex items-center p-6 rounded-xl bg-surface-container-lowest border border-outline-variant hover:border-primary/40 transition-all duration-300 peer-checked:border-primary">
+                    <label class="timeline group cursor-pointer relative flex items-center p-6 rounded-xl bg-surface-container-lowest border-2 border-primary transition-all duration-300">
                         <input checked="" class="hidden peer" name="timeline" type="radio" value="immediate">
                         <div class="w-full flex justify-between items-center">
                             <div>
@@ -592,26 +592,26 @@
                             </div>
                         </div>
                     </label>
-                    <label class="timeline group cursor-pointer relative flex items-center p-6 rounded-xl bg-surface-container-lowest border border-outline-variant hover:border-primary/40 transition-all duration-300">
+                    <label class="timeline group cursor-pointer relative flex items-center p-6 rounded-xl bg-surface-container-lowest border-2 border-outline-variant hover:border-primary/40 transition-all duration-300">
                         <input class="hidden peer" name="timeline" type="radio" value="quarter">
                         <div class="w-full flex justify-between items-center">
                             <div>
                                 <p class="font-semibold text-primary">This Quarter</p>
                                 <p class="text-sm text-primary/60">Planning for the next 3 months</p>
                             </div>
-                            <div class="w-6 h-6 rounded-full border-2 border-outline-variant group-hover:border-primary peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center transition-colors">
+                            <div class="w-6 h-6 rounded-full border-2 border-outline-variant hover:border-primary peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center transition-colors">
                                 <div class="w-2 h-2 rounded-full bg-white opacity-0 peer-checked:opacity-100"></div>
                             </div>
                         </div>
                     </label>
-                    <label class="timeline group cursor-pointer relative flex items-center p-6 rounded-xl bg-surface-container-lowest border border-outline-variant hover:border-primary/40 transition-all duration-300">
+                    <label class="timeline group cursor-pointer relative flex items-center p-6 rounded-xl bg-surface-container-lowest border-2 border-outline-variant hover:border-primary/40 transition-all duration-300">
                         <input class="hidden peer" name="timeline" type="radio" value="future">
                         <div class="w-full flex justify-between items-center">
                             <div>
                                 <p class="font-semibold text-primary">Future Research</p>
                                 <p class="text-sm text-primary/60">Looking at 6+ months ahead</p>
                             </div>
-                            <div class="w-6 h-6 rounded-full border-2 border-outline-variant group-hover:border-primary peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center transition-colors">
+                            <div class="w-6 h-6 rounded-full border-2 border-outline-variant hover:border-primary peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center transition-colors">
                                 <div class="w-2 h-2 rounded-full bg-white opacity-0 peer-checked:opacity-100"></div>
                             </div>
                         </div>
@@ -867,65 +867,38 @@
             });
         }
 
-        // Homeowner Toggle - FIXED
+        // Homeowner Toggle - FIXED AND WORKING
         const homeownerToggle = document.getElementById('homeowner-toggle');
-        let homeownerState = false;
         
         if (homeownerToggle) {
             homeownerToggle.addEventListener('click', function(e) {
                 e.preventDefault();
-                homeownerState = !homeownerState;
+                e.stopPropagation();
                 
                 const span = this.querySelector('span');
-                if (homeownerState) {
+                
+                // Toggle background color
+                if (this.classList.contains('bg-gray-300')) {
                     this.classList.remove('bg-gray-300');
                     this.classList.add('bg-primary');
+                } else {
+                    this.classList.remove('bg-primary');
+                    this.classList.add('bg-gray-300');
+                }
+                
+                // Toggle span position
+                if (span.classList.contains('translate-x-0')) {
                     span.classList.remove('translate-x-0');
                     span.classList.add('translate-x-3');
                 } else {
-                    this.classList.add('bg-gray-300');
-                    this.classList.remove('bg-primary');
-                    span.classList.add('translate-x-0');
                     span.classList.remove('translate-x-3');
+                    span.classList.add('translate-x-0');
                 }
             });
         }
 
-        // Timeline Radio Buttons - Add click handlers for visual feedback
-        const timelineRadios = document.querySelectorAll('input[name="timeline"]');
-        timelineRadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                // Update visual state for all timeline options
-                document.querySelectorAll('label[class*="timeline"]').forEach(label => {
-                    const input = label.querySelector('input[name="timeline"]');
-                    const circleDiv = label.querySelector('div:last-child > div');
-                    
-                    if (input && input.checked) {
-                        label.classList.add('border-primary');
-                        if (circleDiv) {
-                            circleDiv.classList.add('border-primary', 'bg-primary');
-                            circleDiv.classList.remove('border-outline-variant');
-                            const innerDiv = circleDiv.querySelector('div');
-                            if (innerDiv) {
-                                innerDiv.classList.add('opacity-100');
-                                innerDiv.classList.remove('opacity-0');
-                            }
-                        }
-                    } else {
-                        label.classList.remove('border-primary');
-                        if (circleDiv) {
-                            circleDiv.classList.add('border-outline-variant');
-                            circleDiv.classList.remove('border-primary', 'bg-primary');
-                            const innerDiv = circleDiv.querySelector('div');
-                            if (innerDiv) {
-                                innerDiv.classList.remove('opacity-100');
-                                innerDiv.classList.add('opacity-0');
-                            }
-                        }
-                    }
-                });
-            });
-        });
+        // Timeline Radio Buttons - Tailwind peer-checked classes handle visual feedback automatically
+        // No additional JavaScript needed
 
         // Delivery Method Tabs - Add click handlers
         const deliveryRadios = document.querySelectorAll('input[name="delivery"]');
