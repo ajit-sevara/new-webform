@@ -412,7 +412,7 @@
                     </div>
                 </div>
                 <div class="pt-8 space-y-6">
-                    <button onclick="nextStep()" class="w-full bg-primary text-on-primary py-5 rounded-full font-bold text-base tracking-wide shadow-xl shadow-primary/10 hover:shadow-primary/20 transition-all active:scale-[0.98] duration-200" type="submit">
+                    <button onclick="nextStep()" class="w-full bg-primary text-on-primary py-5 rounded-full font-bold text-base tracking-wide shadow-xl shadow-primary/10 hover:shadow-primary/20 transition-all active:scale-[0.98] duration-200" type="button">
                         Analyze Roof Integrity
                     </button>
                     <button class="w-full py-2 text-on-surface/60 font-bold hover:text-primary transition-colors text-sm underline underline-offset-8 decoration-primary/20 hover:decoration-primary" type="button">
@@ -867,30 +867,35 @@
             });
         }
 
-        // Homeowner Toggle
+        // Homeowner Toggle - FIXED
         const homeownerToggle = document.getElementById('homeowner-toggle');
+        let homeownerState = false;
+        
         if (homeownerToggle) {
             homeownerToggle.addEventListener('click', function(e) {
                 e.preventDefault();
-                toggleHomeownership();
+                homeownerState = !homeownerState;
+                
+                const span = this.querySelector('span');
+                if (homeownerState) {
+                    this.classList.remove('bg-gray-300');
+                    this.classList.add('bg-primary');
+                    span.classList.remove('translate-x-0');
+                    span.classList.add('translate-x-3');
+                } else {
+                    this.classList.add('bg-gray-300');
+                    this.classList.remove('bg-primary');
+                    span.classList.add('translate-x-0');
+                    span.classList.remove('translate-x-3');
+                }
             });
         }
     });
 
     function toggleHomeownership() {
         const toggle = document.getElementById('homeowner-toggle');
-        const span = toggle.querySelector('span');
-        
-        if (toggle.classList.contains('bg-gray-300')) {
-            toggle.classList.remove('bg-gray-300');
-            toggle.classList.add('bg-primary');
-            span.classList.remove('translate-x-0');
-            span.classList.add('translate-x-3');
-        } else {
-            toggle.classList.remove('bg-primary');
-            toggle.classList.add('bg-gray-300');
-            span.classList.remove('translate-x-3');
-            span.classList.add('translate-x-0');
+        if (toggle) {
+            toggle.click();
         }
     }
 </script>
