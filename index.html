@@ -781,6 +781,23 @@
     </nav>
 </div>
 
+<!-- ERROR / WARNING SCREEN -->
+<div id="error-screen" class="hidden-step fixed inset-0 bg-surface text-on-surface font-body overflow-y-auto z-50 flex-col items-center justify-center px-6">
+    <header class="fixed top-0 w-full flex justify-center py-10 z-50">
+        <img alt="SolarBuddy Logo" class="w-auto object-contain h-16" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGHz84bTU7ggAuxp6Plf6VjAs64d7l-Ay58IbwZocLUlljdiXW9oiZsFqTTwGggOg7BnrjdmRj35LlMKXsop-Z-rNvAylrn02DlVSDo0VP54zJ2c8TkZBEZmwM100qo53NS8dTBTsrPvquKGf6yBcZw26-luRJh0B5r5W4bEWZffESStNXeIyQOPGLuwwtr0ndHzynujYGy8STBqoWS42fN46d5kd-xBf_s7ia94CdtvLIjxeEgC7D-BKsQmhHqhHQQ11uRAZQX-UX">
+    </header>
+    <div class="w-full max-w-md text-center space-y-6">
+        <div class="w-20 h-20 mx-auto rounded-full bg-error-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-error text-4xl">error</span>
+        </div>
+        <h2 class="font-headline text-2xl font-bold text-primary">We hit a snag</h2>
+        <p id="error-message" class="text-on-surface-variant text-lg leading-relaxed"></p>
+        <button onclick="backToForm()" class="w-full py-5 rounded-full bg-primary text-white font-bold text-lg hover:brightness-110 active:scale-[0.98] transition-all">
+            Go Back &amp; Try Again
+        </button>
+    </div>
+</div>
+
 <script>
     let currentStep = 1;
     const totalSteps = 7;
@@ -867,6 +884,10 @@
         // Show loading screen
         showStep('loading');
 
+        // 45-second timeout safety net
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 45000);
+
         try {
             // Upload photo to Vercel Blob first (if one was selected)
             const photoInput = document.getElementById('photo-upload-input');
@@ -879,36 +900,50 @@
             const response = await fetch(WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(submission)
+                body: JSON.stringify(submission),
+                signal: controller.signal
             });
 
+            clearTimeout(timeoutId);
+
             const responseText = await response.text();
-            let pdfUrl = null;
+
+            // Extract the response body and any custom header message
+            let body = '';
+            let headerMessage = '';
 
             try {
                 const result = JSON.parse(responseText.trim());
-                if (Array.isArray(result) && result.length > 0) {
-                    const webhookData = result[0];
-                    if (webhookData.body && String(webhookData.body).startsWith('http')) {
-                        pdfUrl = webhookData.body;
+                const data = Array.isArray(result) ? result[0] : result;
+                if (data) {
+                    body = data.body != null ? String(data.body) : '';
+                    if (Array.isArray(data.headers)) {
+                        const msg = data.headers.find(h => h.key === 'message');
+                        if (msg) headerMessage = msg.value;
                     }
-                } else if (result.body && String(result.body).startsWith('http')) {
-                    pdfUrl = result.body;
                 }
             } catch (parseErr) {
-                // Response might be a plain URL string
-                if (responseText.trim().startsWith('http')) {
-                    pdfUrl = responseText.trim();
-                }
+                // Response wasn't JSON - treat the raw text as the body
+                body = responseText.trim();
             }
 
-            // Populate report page
-            showReport(pdfUrl);
+            // DECISION: PDF URL -> success, otherwise -> error/warning message
+            if (body.startsWith('http')) {
+                // Success: we have a PDF link
+                showReport(body, headerMessage);
+            } else {
+                // Hardcoded error/warning message from Make.com
+                const message = body || headerMessage || 'Something went wrong. Please try again.';
+                showError(message);
+            }
         } catch (error) {
+            clearTimeout(timeoutId);
             console.error('Submission error:', error);
-            alert('Something went wrong while generating your report. Please try again.');
-            currentStep = 5;
-            showStep(5);
+            if (error.name === 'AbortError') {
+                showError('This is taking longer than expected. Please try again in a moment.');
+            } else {
+                showError('Something went wrong while generating your report. Please try again.');
+            }
         }
     }
 
@@ -927,20 +962,46 @@
         }
     }
 
-    function showReport(pdfUrl) {
+    function showReport(pdfUrl, headerMessage) {
         showStep('report');
 
         // Address on report page
         const addressEl = document.getElementById('report-address');
         if (addressEl) addressEl.textContent = submission.address || '';
 
-        // Wire up the PDF buttons if we got a URL back
+        // Wire up the PDF buttons
+        const viewBtn = document.getElementById('report-view-btn');
+        const downloadBtn = document.getElementById('report-download-btn');
         if (pdfUrl) {
-            const viewBtn = document.getElementById('report-view-btn');
-            const downloadBtn = document.getElementById('report-download-btn');
             if (viewBtn) viewBtn.onclick = () => window.open(pdfUrl, '_blank');
             if (downloadBtn) downloadBtn.onclick = () => window.open(pdfUrl, '_blank');
         }
+
+        // If Make.com sent a custom message (e.g. "report already generated"), show it
+        if (headerMessage) {
+            const headingEl = document.querySelector('#report-screen h1');
+            if (headingEl) {
+                let note = document.getElementById('report-note');
+                if (!note) {
+                    note = document.createElement('p');
+                    note.id = 'report-note';
+                    note.className = 'text-secondary text-sm mt-2 px-4';
+                    headingEl.insertAdjacentElement('afterend', note);
+                }
+                note.textContent = headerMessage;
+            }
+        }
+    }
+
+    function showError(message) {
+        const msgEl = document.getElementById('error-message');
+        if (msgEl) msgEl.textContent = message;
+        showStep('error');
+    }
+
+    function backToForm() {
+        currentStep = 5;
+        showStep(5);
     }
 
     function goBack() {
@@ -958,6 +1019,7 @@
         });
         document.getElementById('loading-screen').classList.add('hidden-step');
         document.getElementById('report-screen').classList.add('hidden-step');
+        document.getElementById('error-screen').classList.add('hidden-step');
 
         // Show requested step
         if (step === 'loading') {
@@ -966,6 +1028,9 @@
         } else if (step === 'report') {
             document.getElementById('report-screen').classList.remove('hidden-step');
             document.getElementById('report-screen').classList.add('visible-step');
+        } else if (step === 'error') {
+            document.getElementById('error-screen').classList.remove('hidden-step');
+            document.getElementById('error-screen').classList.add('visible-step');
         } else {
             const stepEl = document.getElementById(`step-${step}`);
             if (stepEl) {
