@@ -627,23 +627,6 @@
                 </div>
             </section>
             <section class="space-y-8">
-                <h3 class="text-label-sm font-bold tracking-[0.1em] text-primary mb-6 uppercase">Delivery Details</h3>
-                <div class="space-y-6">
-                    <div class="flex p-1 bg-surface-container-low rounded-full w-full border border-outline-variant/30">
-                        <label class="flex-1 text-center py-3 rounded-full cursor-pointer transition-all has-[:checked]:bg-white has-[:checked]:shadow-sm has-[:checked]:border-outline-variant/10">
-                            <input checked="" class="hidden" name="delivery" type="radio" value="email">
-                            <span class="text-sm font-semibold text-primary/60 peer-checked:text-primary">Email</span>
-                        </label>
-                        <label class="flex-1 text-center py-3 rounded-full cursor-pointer transition-all has-[:checked]:bg-white has-[:checked]:shadow-sm has-[:checked]:border-outline-variant/10">
-                            <input class="hidden" name="delivery" type="radio" value="telegram">
-                            <span class="text-sm font-semibold text-primary/60 peer-checked:text-primary">Telegram</span>
-                        </label>
-                    </div>
-                    <div class="relative group">
-                        <input class="peer block w-full px-6 py-5 bg-surface-container-lowest border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary/20 rounded-xl transition-all placeholder-transparent text-primary font-medium" id="contact-input" placeholder=" " type="text">
-                        <label class="absolute left-6 top-5 text-primary/40 text-sm transition-all peer-focus:text-xs peer-focus:-top-2.5 peer-focus:left-4 peer-focus:px-2 peer-focus:bg-white peer-placeholder-shown:text-sm peer-placeholder-shown:top-5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:left-4 peer-not-placeholder-shown:px-2 peer-not-placeholder-shown:bg-white" for="contact-input">Enter your contact info</label>
-                    </div>
-                </div>
                 <label class="flex gap-4 cursor-pointer group pt-4">
                     <div class="relative flex items-center justify-center pt-1">
                         <input id="consent-checkbox" class="peer h-5 w-5 rounded border-outline-variant text-primary focus:ring-primary focus:ring-offset-2 transition-all bg-white" required="" type="checkbox">
@@ -822,9 +805,7 @@
         ev_interest: false,
         monitoring_interest: false,
         hvac_interest: false,
-        timeline: 'immediate',
-        delivery_method: 'email',
-        contact_info: ''
+        timeline: 'immediate'
     };
 
     function nextStep() {
@@ -873,8 +854,6 @@
     }
 
     async function submitForm() {
-        // Capture Step 5 fields
-        submission.contact_info = document.getElementById('contact-input') ? document.getElementById('contact-input').value.trim() : '';
         const consentEl = document.getElementById('consent-checkbox');
         if (consentEl && !consentEl.checked) {
             alert('Please agree to receive your personalized solar report.');
@@ -1149,32 +1128,6 @@
 
                 // Store timeline value
                 submission.timeline = this.getAttribute('data-value') || '';
-            });
-        });
-
-        // Delivery Method Tabs - Add click handlers
-        const deliveryRadios = document.querySelectorAll('input[name="delivery"]');
-        deliveryRadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                const parentLabel = this.closest('label');
-                const parentDiv = this.closest('div');
-                
-                // Remove active state from all labels
-                parentDiv.parentElement.querySelectorAll('label').forEach(label => {
-                    label.classList.remove('bg-white', 'shadow-sm');
-                    label.querySelector('span').classList.add('text-primary/60');
-                    label.querySelector('span').classList.remove('text-primary');
-                });
-                
-                // Add active state to selected label
-                if (parentLabel) {
-                    parentLabel.classList.add('bg-white', 'shadow-sm');
-                    parentLabel.querySelector('span').classList.remove('text-primary/60');
-                    parentLabel.querySelector('span').classList.add('text-primary');
-                }
-
-                // Store delivery method value
-                submission.delivery_method = this.value;
             });
         });
 
