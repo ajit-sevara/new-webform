@@ -787,7 +787,7 @@
     const totalSteps = 7;
 
     // Webhook endpoint (Make.com)
-    const WEBHOOK_URL = 'https://hook.eu1.make.com/c4yhyex1zon7n1ioriu8i2m2pjicue0c';
+    const WEBHOOK_URL = 'https://hook.eu1.make.com/ulukt6m2jehymtbbamsxex743nfwyqe5';
 
     // Collected form data
     const submission = {
@@ -907,12 +907,31 @@
                 body = responseText.trim();
             }
 
-            // DECISION: PDF URL -> success, otherwise -> error/warning message
-            if (body.startsWith('http')) {
-                // Success: we have a PDF link
-                showReport(body, headerMessage);
+            // DECISION: look for a PDF URL anywhere in the response.
+            // Make.com sends either "https://...pdf" OR "Some message|||https://...pdf"
+            let pdfUrl = '';
+            let noteMessage = headerMessage || '';
+
+            if (body.includes('|||')) {
+                // Split "message|||url" into its two parts
+                const parts = body.split('|||');
+                const beforeSep = parts[0].trim();
+                const afterSep = (parts[1] || '').trim();
+                if (afterSep.startsWith('http')) {
+                    pdfUrl = afterSep;
+                    if (beforeSep) noteMessage = beforeSep; // e.g. "A report for this address has already been generated."
+                } else if (beforeSep.startsWith('http')) {
+                    pdfUrl = beforeSep;
+                }
+            } else if (body.startsWith('http')) {
+                pdfUrl = body;
+            }
+
+            if (pdfUrl) {
+                // Success (or "already generated") -> report page with working button
+                showReport(pdfUrl, noteMessage);
             } else {
-                // Hardcoded error/warning message from Make.com
+                // No PDF URL -> genuine error/warning message
                 const message = body || headerMessage || 'Something went wrong. Please try again.';
                 showError(message);
             }
@@ -980,8 +999,14 @@
     }
 
     function backToForm() {
-        currentStep = 5;
-        showStep(5);
+        // Explicitly hide all overlay screens, then return to the form at step 1
+        ['loading-screen','report-screen','error-screen'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) { el.classList.add('hidden-step'); el.classList.remove('visible-step'); }
+        });
+        currentStep = 1;
+        showStep(1);
+        window.scrollTo(0, 0);
     }
 
     function goBack() {
