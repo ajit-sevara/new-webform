@@ -378,10 +378,11 @@
                         <div class="relative group">
                             <select id="roof-age" class="custom-select w-full bg-surface-container-low border-2 border-transparent rounded-full py-4 px-6 text-on-surface focus:ring-2 focus:ring-primary/10 focus:bg-white focus:border-primary/20 transition-all cursor-pointer font-medium">
                                 <option disabled="" selected="" value="">Select age range</option>
-                                <option value="&lt;5 years">0 - 5 Years (Excellent)</option>
-                                <option value="5-10 years">5 - 15 Years (Good)</option>
-                                <option value="10-20 years">15 - 25 Years (Mid-life)</option>
-                                <option value="20+ years">25+ Years (Replacement may be needed)</option>
+                                <option value="&lt;5 years">Less than 5 years</option>
+                                <option value="5-10 years">5 - 10 years</option>
+                                <option value="10-20 years">10 - 20 years</option>
+                                <option value="20+ years">20+ years</option>
+                                <option value="Unsure">Unsure</option>
                             </select>
                         </div>
                     </div>
@@ -390,11 +391,11 @@
                         <div class="relative group">
                             <select id="roof-type" class="custom-select w-full bg-surface-container-low border-2 border-transparent rounded-full py-4 px-6 text-on-surface focus:ring-2 focus:ring-primary/10 focus:bg-white focus:border-primary/20 transition-all cursor-pointer font-medium">
                                 <option disabled="" selected="" value="">Select roof type</option>
-                                <option value="Asphalt shingle">Asphalt Shingles</option>
-                                <option value="Metal">Architectural Metal</option>
-                                <option value="Tile">Clay or Concrete Tile</option>
-                                <option value="Flat">Flat / Membrane</option>
-                                <option value="Other/Unsecure">Natural Slate</option>
+                                <option value="Asphalt shingle">Asphalt shingle</option>
+                                <option value="Tile">Tile</option>
+                                <option value="Metal">Metal</option>
+                                <option value="Flat">Flat</option>
+                                <option value="Other/Unsecure">Other/Unsecure</option>
                             </select>
                         </div>
                     </div>
@@ -786,7 +787,7 @@
     const totalSteps = 7;
 
     // Webhook endpoint (Make.com)
-    const WEBHOOK_URL = 'https://hook.eu1.make.com/c4yhyex1zon7n1ioriu8i2m2pjicue0c';
+    const WEBHOOK_URL = 'https://hook.eu1.make.com/ulukt6m2jehymtbbamsxex743nfwyqe5';
 
     // Collected form data
     const submission = {
