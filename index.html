@@ -141,9 +141,6 @@
 <div id="step-1" class="visible-step flex flex-col min-h-screen">
     <header class="w-full max-w-xl mx-auto px-6 py-8">
         <div class="relative flex items-center justify-center min-h-[48px]">
-            <button onclick="goBack()" aria-label="Go back" class="absolute left-0 p-2 -ml-2 hover:bg-black/5 rounded-full transition-colors">
-                <span class="material-symbols-outlined text-primary text-[24px]">arrow_back</span>
-            </button>
             <div class="flex flex-col items-center">
                 <img alt="SolarBuddy Logo" class="w-auto mb-6 object-contain h-20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9h8u2cqGK_R468RXp640hdBC_jwDblxWOv1PQnTlUlWmhUg2QKhGWUc7haDyYzdP1Ob6yUUGtk_Z7h6R7oqI8kwX3r4iqQghJGcb2u8eyMeiNZZxmBSZDpvByULrGmU9IHtc9caveVcpU3Lp70x_6u7zdQstupIzHObOmp8tCpAggVd8sLTCvee9-ZJLnMiSf_yB-k018uCOwP-xtd7JPSpZlgDZl5MuSQ2UuPtmRzwLc59kX3uJMcrqn9v3RUalyYQq6Aq6NXYgI">
                 <span class="text-[10px] font-bold tracking-[0.2em] text-primary/60 uppercase mb-3">Step 1 of 5</span>
@@ -200,19 +197,7 @@
                     </div>
                     <input id="address-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Enter your street address" type="text">
                 </div>
-                <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-black/5 ring-1 ring-black/5">
-                    <div class="absolute inset-0 z-10 map-mask">
-                        <img alt="Satellite view of a lush residential neighborhood" class="w-full h-full object-cover grayscale-[20%] opacity-90" data-location="San Francisco" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAse-y0jA2Biwajp_J39hnWBarT44qPBsKy74mDMh7KbNSaKGF7hOF3iC7nDQDcGUWUjYd5RFcPr0LVJgwdUoantV9Ulq6oXAXifARQZTOwaVn_NN-9hUDdA2EMXcj52fkSGHzSXM0J2G5OaKqLZcj2hK7rF1kXQCuoT5eNqVCvxTbhDcmdVlInSxu16ZUPvpFzH68NFokD9rUHbfzLaNUpv817-sNQfYqFqOJhtuyOcTyMGbhQvBmIrBwBd0nrANDftavLXvSMaHQH">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent z-20"></div>
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
-                        <div class="w-14 h-14 rounded-full bg-primary/5 flex items-center justify-center">
-                            <div class="w-4 h-4 rounded-full bg-primary shadow-xl shadow-primary/40 animate-pulse"></div>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </section>
         </section>
 
         <div class="mt-auto pt-10">
@@ -694,7 +679,7 @@
 </div>
 
 <!-- REPORT PAGE -->
-<div id="report-screen" class="hidden-step fixed inset-0 bg-surface text-on-surface font-body overflow-y-auto z-50">
+<div id="report-screen" class="hidden-step fixed inset-0 bg-surface text-on-surface font-body overflow-y-auto z-50 flex-col">
     <header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-[#061B0E]/80 backdrop-blur-xl px-6 py-4 flex justify-between items-center">
         <div class="flex items-center gap-4">
             <span class="material-symbols-outlined text-[#061B0E]" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
@@ -706,7 +691,7 @@
             <span class="material-symbols-outlined text-[#061B0E]">more_vert</span>
         </div>
     </header>
-    <main class="relative pt-24 pb-32 px-6 flex flex-col items-center justify-center min-h-screen text-center">
+    <main class="relative w-full pt-24 pb-32 px-6 flex flex-col items-center justify-center min-h-screen text-center">
         <div class="absolute top-1/4 -right-20 w-64 h-64 bg-secondary-fixed opacity-20 rounded-full blur-3xl -z-10"></div>
         <div class="absolute bottom-1/4 -left-20 w-80 h-80 bg-tertiary-fixed opacity-20 rounded-full blur-3xl -z-10"></div>
         <div class="relative w-full max-w-sm aspect-square mb-12 flex items-center justify-center">
@@ -745,24 +730,6 @@
             </div>
         </div>
     </main>
-    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-white/90 dark:bg-[#1B3022]/90 backdrop-blur-2xl rounded-t-[2rem] shadow-[0_-12px_40px_rgba(25,28,27,0.04)]">
-        <div class="flex flex-col items-center justify-center text-[#4A654F] dark:text-[#A9C5D3] px-5 py-2 hover:text-[#061B0E] transition-opacity">
-            <span class="material-symbols-outlined mb-1">wb_sunny</span>
-            <span class="font-['Manrope'] text-[10px] uppercase tracking-[0.1em] font-bold">Overview</span>
-        </div>
-        <div class="flex flex-col items-center justify-center bg-[#CCEACF] dark:bg-[#4A654F] text-[#061B0E] dark:text-[#F8FAF8] rounded-full px-5 py-2 scale-95 transition-transform">
-            <span class="material-symbols-outlined mb-1">analytics</span>
-            <span class="font-['Manrope'] text-[10px] uppercase tracking-[0.1em] font-bold">Analysis</span>
-        </div>
-        <div class="flex flex-col items-center justify-center text-[#4A654F] dark:text-[#A9C5D3] px-5 py-2 hover:text-[#061B0E]">
-            <span class="material-symbols-outlined mb-1">payments</span>
-            <span class="font-['Manrope'] text-[10px] uppercase tracking-[0.1em] font-bold">Savings</span>
-        </div>
-        <div class="flex flex-col items-center justify-center text-[#4A654F] dark:text-[#A9C5D3] px-5 py-2 hover:text-[#061B0E]">
-            <span class="material-symbols-outlined mb-1">ios_share</span>
-            <span class="font-['Manrope'] text-[10px] uppercase tracking-[0.1em] font-bold">Share</span>
-        </div>
-    </nav>
 </div>
 
 <!-- ERROR / WARNING SCREEN -->
@@ -787,7 +754,7 @@
     const totalSteps = 7;
 
     // Webhook endpoint (Make.com)
-    const WEBHOOK_URL = 'https://hook.eu1.make.com/c4yhyex1zon7n1ioriu8i2m2pjicue0c';
+    const WEBHOOK_URL = 'https://hook.eu1.make.com/ulukt6m2jehymtbbamsxex743nfwyqe5';
 
     // Collected form data
     const submission = {
