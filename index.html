@@ -409,9 +409,6 @@
                     <button onclick="nextStep()" class="w-full bg-primary text-on-primary py-5 rounded-full font-bold text-base tracking-wide shadow-xl shadow-primary/10 hover:shadow-primary/20 transition-all active:scale-[0.98] duration-200" type="button">
                         Analyze Roof Integrity
                     </button>
-                    <button class="w-full py-2 text-on-surface/60 font-bold hover:text-primary transition-colors text-sm underline underline-offset-8 decoration-primary/20 hover:decoration-primary" type="button">
-                        I'm not sure about my roof details
-                    </button>
                 </div>
             </form>
         </section>
@@ -529,12 +526,6 @@
                 </div>
             </label>
         </div>
-        <div class="mt-20 flex justify-end">
-            <div class="w-32 h-32 relative opacity-10 rotate-12">
-                <div class="absolute inset-0 bg-primary/20 rounded-full blur-3xl"></div>
-                <span class="material-symbols-outlined text-primary text-6xl absolute inset-0 flex items-center justify-center" data-icon="wb_sunny">wb_sunny</span>
-            </div>
-        </div>
     </main>
     <div class="sticky bottom-0 w-full max-w-xl mx-auto p-6 bg-gradient-to-t from-white via-white/90 to-transparent pointer-events-none">
         <button onclick="nextStep()" class="pointer-events-auto w-full py-5 px-8 rounded-full bg-primary text-on-primary font-bold tracking-tight text-lg shadow-2xl transition-all duration-300 hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3">
@@ -632,47 +623,51 @@
 </div>
 
 <!-- LOADING INTERSTITIAL -->
-<div id="loading-screen" class="hidden-step fixed inset-0 bg-surface text-on-surface font-body overflow-hidden flex flex-col pt-32 px-8 pb-12 z-50">
-    <header class="fixed top-0 w-full flex justify-center py-10 z-50">
-        <img alt="SolarBuddy Logo" class="w-auto object-contain h-20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGHz84bTU7ggAuxp6Plf6VjAs64d7l-Ay58IbwZocLUlljdiXW9oiZsFqTTwGggOg7BnrjdmRj35LlMKXsop-Z-rNvAylrn02DlVSDo0VP54zJ2c8TkZBEZmwM100qo53NS8dTBTsrPvquKGf6yBcZw26-luRJh0B5r5W4bEWZffESStNXeIyQOPGLuwwtr0ndHzynujYGy8STBqoWS42fN46d5kd-xBf_s7ia94CdtvLIjxeEgC7D-BKsQmhHqhHQQ11uRAZQX-UX">
+<div id="loading-screen" class="hidden-step fixed inset-0 bg-surface text-on-surface font-body overflow-y-auto flex flex-col z-50">
+    <header class="fixed top-0 w-full flex justify-center py-6 z-50 bg-surface/80 backdrop-blur">
+        <img alt="SolarBuddy Logo" class="w-auto object-contain h-14" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGHz84bTU7ggAuxp6Plf6VjAs64d7l-Ay58IbwZocLUlljdiXW9oiZsFqTTwGggOg7BnrjdmRj35LlMKXsop-Z-rNvAylrn02DlVSDo0VP54zJ2c8TkZBEZmwM100qo53NS8dTBTsrPvquKGf6yBcZw26-luRJh0B5r5W4bEWZffESStNXeIyQOPGLuwwtr0ndHzynujYGy8STBqoWS42fN46d5kd-xBf_s7ia94CdtvLIjxeEgC7D-BKsQmhHqhHQQ11uRAZQX-UX">
     </header>
-    <main class="relative h-screen flex flex-col pt-32 px-8 pb-12 overflow-hidden flex-grow">
-        <section class="h-1/3 flex flex-col items-center justify-center text-center space-y-6">
-            <h1 class="font-display text-4xl text-primary-container leading-tight tracking-tight px-4 transition-all duration-1000 ease-out">We Are Preparing Your Report</h1>
-            <div class="relative w-16 h-16 flex items-center justify-center">
+    <main class="relative flex flex-col items-center px-6 pt-28 pb-10 gap-8 min-h-screen justify-center">
+        <section class="flex flex-col items-center justify-center text-center space-y-5">
+            <h1 class="font-display text-3xl sm:text-4xl text-primary-container leading-tight tracking-tight px-4">We Are Preparing Your Report</h1>
+            <div class="relative w-14 h-14 flex items-center justify-center">
                 <div class="absolute inset-0 rounded-full border border-secondary-fixed animate-ring-rotate"></div>
-                <div class="absolute w-12 h-12 rounded-full border-t-2 border-primary-container animate-ring-rotate"></div>
+                <div class="absolute w-11 h-11 rounded-full border-t-2 border-primary-container animate-ring-rotate"></div>
                 <div class="w-3 h-3 bg-primary rounded-full animate-pulse-slow"></div>
             </div>
         </section>
-        <section class="h-2/3 flex items-start justify-center">
-            <div class="w-full max-w-sm mt-12">
-                <div class="mb-8 text-center space-y-2">
-                    <h2 class="font-display text-4xl text-primary-container italic">Did you know?</h2>
-                    <p class="font-body text-sm text-on-surface-variant opacity-60 tracking-wide uppercase">(Swipe left to move to next card)</p>
+        <section class="flex items-start justify-center w-full">
+            <div class="w-full max-w-sm">
+                <div class="mb-6 text-center space-y-2">
+                    <h2 class="font-display text-3xl sm:text-4xl text-primary-container italic">Did you know?</h2>
+                    <p class="font-body text-xs sm:text-sm text-on-surface-variant opacity-60 tracking-wide uppercase">(Swipe or tap the arrows)</p>
                 </div>
-                <div class="relative group">
+                <div class="relative group" id="trivia-swipe">
                     <div class="absolute inset-0 bg-primary-container/5 rounded-[2rem] blur-2xl -z-10 transform translate-y-4 scale-95"></div>
-                    <article class="surface-container-lowest rounded-[2.5rem] p-8 md:p-10 shadow-[0_12px_40px_rgba(25,28,27,0.04)] min-h-[320px] flex flex-col justify-between transition-all duration-700 ease-in-out" id="trivia-card">
+                    <article class="surface-container-lowest rounded-[2.5rem] p-8 md:p-10 shadow-[0_12px_40px_rgba(25,28,27,0.04)] min-h-[300px] flex flex-col justify-between transition-all duration-300 ease-in-out select-none" id="trivia-card">
                         <div class="space-y-6">
                             <div class="flex items-center space-gap-2">
                                 <span class="material-symbols-outlined text-secondary text-xl">wb_incandescent</span>
                                 <span class="font-label text-[10px] uppercase tracking-[0.2em] text-secondary font-bold ml-2">Energy Insight</span>
                             </div>
-                            <p class="text-on-surface-variant font-body text-lg leading-relaxed tracking-wide" id="trivia-text">Solar panels work efficiently in cloudy conditions. Research shows module properties like temperature coefficient and spectral response significantly influence performance under different weather conditions.</p>
+                            <p class="text-on-surface-variant font-body text-lg leading-relaxed tracking-wide" id="trivia-text"></p>
                         </div>
                         <footer class="mt-8 pt-6 border-t border-surface-container/50">
-                            <p class="font-label text-[9px] uppercase tracking-widest text-outline leading-tight opacity-70">[Source: IEA PVGIS Task 13, 2023 – International Energy Agency]</p>
+                            <p class="font-label text-[9px] uppercase tracking-widest text-outline leading-tight opacity-70" id="trivia-source"></p>
                         </footer>
                     </article>
-                    <div class="absolute -top-4 -right-4 w-20 h-20 bg-tertiary-fixed/20 rounded-full blur-3xl"></div>
-                    <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-secondary-fixed/30 rounded-full blur-3xl"></div>
+                    <div class="absolute -top-4 -right-4 w-20 h-20 bg-tertiary-fixed/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-secondary-fixed/30 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <!-- nav arrows -->
+                    <button type="button" onclick="triviaPrev()" aria-label="Previous" class="absolute -left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-primary hover:bg-surface-container-low active:scale-90 transition z-10">
+                        <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+                    </button>
+                    <button type="button" onclick="triviaNext()" aria-label="Next" class="absolute -right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-primary hover:bg-surface-container-low active:scale-90 transition z-10">
+                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                    </button>
                 </div>
-                <div class="flex justify-center mt-10 space-x-2">
-                    <div class="w-2 h-1 bg-surface-container-highest rounded-full transition-all duration-500"></div>
-                    <div class="w-2 h-1 bg-surface-container-highest rounded-full transition-all duration-500"></div>
-                    <div class="w-8 h-1 bg-primary-container rounded-full transition-all duration-500"></div>
-                </div>
+                <div class="flex justify-center mt-10 space-x-2" id="trivia-dots"></div>
             </div>
         </section>
     </main>
@@ -1178,7 +1173,56 @@
         }
     });
 
-    // Remove selected photo (global so the inline onclick can reach it)
+        // ===== Trivia carousel (loading screen) =====
+        const triviaFacts = [
+            { text: "Solar panels work efficiently even in cloudy conditions. Module properties like temperature coefficient and spectral response influence performance across different weather.", source: "[Source: IEA PVGIS Task 13 — International Energy Agency]" },
+            { text: "The amount of sunlight that hits the Earth in one hour is enough to power the entire planet for a whole year.", source: "[Source: U.S. Department of Energy]" },
+            { text: "Solar panels typically keep producing around 85–90% of their original output even after 25 years of use.", source: "[Source: National Renewable Energy Laboratory]" },
+            { text: "South-facing roofs in the northern hemisphere can capture up to 40% more solar energy than north-facing ones.", source: "[Source: PVGIS Solar Database]" },
+            { text: "A typical home solar system can offset several tonnes of CO₂ each year — equivalent to planting dozens of trees.", source: "[Source: EPA Greenhouse Gas Equivalencies]" },
+        ];
+        let triviaIndex = 0;
+        const triviaTextEl = document.getElementById('trivia-text');
+        const triviaSourceEl = document.getElementById('trivia-source');
+        const triviaDotsEl = document.getElementById('trivia-dots');
+
+        function renderTrivia() {
+            if (!triviaTextEl) return;
+            const f = triviaFacts[triviaIndex];
+            triviaTextEl.style.opacity = 0;
+            setTimeout(() => {
+                triviaTextEl.textContent = f.text;
+                if (triviaSourceEl) triviaSourceEl.textContent = f.source;
+                triviaTextEl.style.opacity = 1;
+            }, 150);
+            if (triviaDotsEl) {
+                triviaDotsEl.innerHTML = triviaFacts.map((_, i) =>
+                    `<div class="${i === triviaIndex ? 'w-8 bg-primary-container' : 'w-2 bg-surface-container-highest'} h-1 rounded-full transition-all duration-500"></div>`
+                ).join('');
+            }
+        }
+        window.triviaNext = function () { triviaIndex = (triviaIndex + 1) % triviaFacts.length; renderTrivia(); };
+        window.triviaPrev = function () { triviaIndex = (triviaIndex - 1 + triviaFacts.length) % triviaFacts.length; renderTrivia(); };
+
+        // swipe gestures
+        const swipeEl = document.getElementById('trivia-swipe');
+        if (swipeEl) {
+            let startX = 0, startY = 0, tracking = false;
+            swipeEl.addEventListener('touchstart', e => {
+                startX = e.touches[0].clientX; startY = e.touches[0].clientY; tracking = true;
+            }, { passive: true });
+            swipeEl.addEventListener('touchend', e => {
+                if (!tracking) return;
+                tracking = false;
+                const dx = e.changedTouches[0].clientX - startX;
+                const dy = e.changedTouches[0].clientY - startY;
+                if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+                    if (dx < 0) window.triviaNext(); else window.triviaPrev();
+                }
+            }, { passive: true });
+        }
+        renderTrivia();
+
     function removePhoto(e) {
         if (e) e.stopPropagation();
         const photoInput = document.getElementById('photo-upload-input');
