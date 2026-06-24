@@ -245,7 +245,7 @@
                     <h3 class="font-headline font-bold text-primary text-lg">Financial Savings</h3>
                     <p class="text-on-surface-variant text-sm">Maximize long-term ROI and reduce utility dependency.</p>
                 </div>
-                <div class="ml-auto opacity-0 group-hover:opacity-40 transition-opacity">
+                <div class="ml-auto hidden">
                     <span class="material-symbols-outlined text-primary" data-icon="check_circle">check_circle</span>
                 </div>
             </button>
@@ -269,7 +269,7 @@
                     <h3 class="font-headline font-bold text-primary text-lg">Energy Independence</h3>
                     <p class="text-on-surface-variant text-sm">Gain autonomy with backup storage and grid resilience.</p>
                 </div>
-                <div class="ml-auto opacity-0 group-hover:opacity-40 transition-opacity">
+                <div class="ml-auto hidden">
                     <span class="material-symbols-outlined text-primary" data-icon="check_circle">check_circle</span>
                 </div>
             </button>
@@ -1059,7 +1059,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Checkmark container
                 const checkContainer = c.querySelector('.ml-auto');
                 if (checkContainer) {
-                    checkContainer.classList.add('opacity-0', 'group-hover:opacity-40');
+                    checkContainer.classList.add('hidden');
                 }
 
                 // Checkmark
@@ -1115,8 +1115,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Checkmark container
             const checkContainer = this.querySelector('.ml-auto');
             if (checkContainer) {
-                checkContainer.classList.remove('opacity-0', 'group-hover:opacity-40');
-                checkContainer.classList.add('opacity-100');
+                checkContainer.classList.remove('hidden');
             }
 
             // Checkmark
