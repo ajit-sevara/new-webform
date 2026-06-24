@@ -1133,39 +1133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Bill Slider Update
-    const billSlider = document.getElementById('bill-slider');
-    const billDisplay = document.getElementById('bill-display');
 
-    if (billSlider) {
-        billSlider.addEventListener('input', function() {
-            billDisplay.textContent = '$' + this.value;
-        });
-    }
-
-    // Homeowner Toggle
-    const homeownerToggle = document.getElementById('homeowner-toggle');
-    const homeownerKnob = document.getElementById('homeowner-knob');
-    let homeownerOn = false;
-
-    if (homeownerToggle && homeownerKnob) {
-        homeownerToggle.addEventListener('click', function() {
-            homeownerOn = !homeownerOn;
-
-            if (homeownerOn) {
-                this.classList.remove('bg-gray-300');
-                this.classList.add('bg-primary');
-                homeownerKnob.style.transform = 'translateX(24px)';
-            } else {
-                this.classList.remove('bg-primary');
-                this.classList.add('bg-gray-300');
-                homeownerKnob.style.transform = 'translateX(0px)';
-            }
-
-            submission.homeowner = homeownerOn;
-        });
-    }
-});
         // Bill Slider Update
         const billSlider = document.getElementById('bill-slider');
         const billDisplay = document.getElementById('bill-display');
