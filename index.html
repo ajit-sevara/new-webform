@@ -1006,44 +1006,166 @@
     }
 
     // ===== UI INTERACTIONS =====
+// Motivation Card Selection
+document.addEventListener('DOMContentLoaded', () => {
+    const motivationCards = document.querySelectorAll('.motivation-btn');
 
-    // Motivation Card Selection
-    document.addEventListener('DOMContentLoaded', () => {
-        const motivationCards = document.querySelectorAll('.motivation-btn');
-        
-        motivationCards.forEach(card => {
-            card.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Remove selected state from all cards
-                motivationCards.forEach(c => {
-                    c.classList.remove('bg-primary', 'shadow-lg', 'shadow-primary/20', 'selected');
-                    c.classList.add('bg-surface-container', 'border', 'border-outline/10');
-                    
-                    const heading = c.querySelector('h3');
-                    const text = c.querySelector('p');
+    motivationCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Reset ALL cards
+            motivationCards.forEach(c => {
+                c.classList.remove(
+                    'bg-primary',
+                    'shadow-lg',
+                    'shadow-primary/20',
+                    'selected'
+                );
+
+                c.classList.add(
+                    'bg-surface-container',
+                    'border',
+                    'border-outline/10'
+                );
+
+                // Heading
+                const heading = c.querySelector('h3');
+                if (heading) {
                     heading.classList.remove('text-white');
                     heading.classList.add('text-primary');
+                }
+
+                // Description
+                const text = c.querySelector('p');
+                if (text) {
                     text.classList.remove('text-white/70');
                     text.classList.add('text-on-surface-variant');
-                });
-                
-                // Add selected state to clicked card
-                this.classList.remove('bg-surface-container', 'border', 'border-outline/10');
-                this.classList.add('bg-primary', 'shadow-lg', 'shadow-primary/20', 'selected');
-                
-                const heading = this.querySelector('h3');
-                const text = this.querySelector('p');
-                heading.classList.add('text-white');
-                heading.classList.remove('text-primary');
-                text.classList.add('text-white/70');
-                text.classList.remove('text-on-surface-variant');
+                }
 
-                // Store selected motivation value
-                submission.energy_motivation = this.getAttribute('data-motivation') || '';
+                // Icon circle
+                const iconWrapper = c.querySelector('.w-12.h-12');
+                if (iconWrapper) {
+                    iconWrapper.classList.remove('bg-white/10');
+                    iconWrapper.classList.add('bg-primary', 'text-white');
+                }
+
+                // Icon fill
+                const icon = c.querySelector('.material-symbols-outlined');
+                if (icon) {
+                    icon.style.fontVariationSettings = "'FILL' 0";
+                }
+
+                // Checkmark container
+                const checkContainer = c.querySelector('.ml-auto');
+                if (checkContainer) {
+                    checkContainer.classList.add('opacity-0', 'group-hover:opacity-40');
+                }
+
+                // Checkmark
+                const checkIcon = c.querySelector('.ml-auto .material-symbols-outlined');
+                if (checkIcon) {
+                    checkIcon.classList.remove('text-white');
+                    checkIcon.classList.add('text-primary');
+                    checkIcon.style.fontVariationSettings = "'FILL' 0";
+                }
             });
-        });
 
+            // Select clicked card
+            this.classList.remove(
+                'bg-surface-container',
+                'border',
+                'border-outline/10'
+            );
+
+            this.classList.add(
+                'bg-primary',
+                'shadow-lg',
+                'shadow-primary/20',
+                'selected'
+            );
+
+            // Heading
+            const heading = this.querySelector('h3');
+            if (heading) {
+                heading.classList.remove('text-primary');
+                heading.classList.add('text-white');
+            }
+
+            // Description
+            const text = this.querySelector('p');
+            if (text) {
+                text.classList.remove('text-on-surface-variant');
+                text.classList.add('text-white/70');
+            }
+
+            // Icon circle
+            const iconWrapper = this.querySelector('.w-12.h-12');
+            if (iconWrapper) {
+                iconWrapper.classList.remove('bg-primary');
+                iconWrapper.classList.add('bg-white/10');
+            }
+
+            // Icon fill
+            const icon = this.querySelector('.material-symbols-outlined');
+            if (icon) {
+                icon.style.fontVariationSettings = "'FILL' 1";
+            }
+
+            // Checkmark container
+            const checkContainer = this.querySelector('.ml-auto');
+            if (checkContainer) {
+                checkContainer.classList.remove('opacity-0', 'group-hover:opacity-40');
+                checkContainer.classList.add('opacity-100');
+            }
+
+            // Checkmark
+            const checkIcon = this.querySelector('.ml-auto .material-symbols-outlined');
+            if (checkIcon) {
+                checkIcon.classList.remove('text-primary');
+                checkIcon.classList.add('text-white');
+                checkIcon.style.fontVariationSettings = "'FILL' 1";
+            }
+
+            // Store selected value
+            submission.energy_motivation =
+                this.getAttribute('data-motivation') || '';
+        });
+    });
+
+    // Bill Slider Update
+    const billSlider = document.getElementById('bill-slider');
+    const billDisplay = document.getElementById('bill-display');
+
+    if (billSlider) {
+        billSlider.addEventListener('input', function() {
+            billDisplay.textContent = '$' + this.value;
+        });
+    }
+
+    // Homeowner Toggle
+    const homeownerToggle = document.getElementById('homeowner-toggle');
+    const homeownerKnob = document.getElementById('homeowner-knob');
+    let homeownerOn = false;
+
+    if (homeownerToggle && homeownerKnob) {
+        homeownerToggle.addEventListener('click', function() {
+            homeownerOn = !homeownerOn;
+
+            if (homeownerOn) {
+                this.classList.remove('bg-gray-300');
+                this.classList.add('bg-primary');
+                homeownerKnob.style.transform = 'translateX(24px)';
+            } else {
+                this.classList.remove('bg-primary');
+                this.classList.add('bg-gray-300');
+                homeownerKnob.style.transform = 'translateX(0px)';
+            }
+
+            submission.homeowner = homeownerOn;
+        });
+    }
+});
         // Bill Slider Update
         const billSlider = document.getElementById('bill-slider');
         const billDisplay = document.getElementById('bill-display');
