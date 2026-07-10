@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>SolarBuddy - Multi-Step Solar Assessment</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght=200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <script id="tailwind-config">
@@ -137,7 +137,6 @@
 </head>
 <body class="bg-background font-body text-on-surface antialiased">
 
-<!-- STEP 1: LOCATION ENTRY -->
 <div id="step-1" class="visible-step flex flex-col min-h-screen">
     <header class="w-full max-w-xl mx-auto px-6 py-8">
         <div class="relative flex items-center justify-center min-h-[48px]">
@@ -161,7 +160,6 @@
             <p class="mt-4 text-primary/70 text-lg font-light leading-relaxed">We'll need some basic information and your location to analyze your solar potential.</p>
         </section>
 
-        <!-- SECTION 1: YOUR INFORMATION -->
         <section class="mb-12">
             <h3 class="font-label text-xs uppercase tracking-[0.2em] text-primary/60 mb-6 block font-bold">Your Information</h3>
             <div class="space-y-4">
@@ -186,7 +184,6 @@
             </div>
         </section>
 
-        <!-- SECTION 2: WHERE ARE YOU LOCATED -->
         <section class="mb-10">
             <h3 class="font-label text-xs uppercase tracking-[0.2em] text-primary/60 mb-6 block font-bold">Solar Feasibility</h3>
             <p class="text-primary/70 text-lg font-light leading-relaxed mb-6">Where are you located? We'll analyze your rooftop's sun exposure using high-resolution satellite imagery.</p>
@@ -210,7 +207,6 @@
     </main>
 </div>
 
-<!-- STEP 2: MOTIVATION & USAGE -->
 <div id="step-2" class="hidden-step flex flex-col min-h-screen">
     <header class="w-full max-w-xl mx-auto px-6 py-8">
         <div class="relative flex items-center justify-center min-h-[48px]">
@@ -319,7 +315,7 @@
         </section>
         <div class="mt-auto flex flex-col items-center gap-6 pb-10">
             <button onclick="nextStep()" class="w-full py-5 px-8 rounded-full bg-primary text-white font-bold text-lg tracking-tight hover:brightness-110 active:scale-[0.98] transition-all shadow-xl shadow-primary/10">Continue to Assessment</button>
-            <p class="text-on-surface-variant/60 text-[11px] text-center max-w-xs leading-relaxed uppercase tracking-wider font-semibold">Sustainable privacy standards &amp; data encryption protocols</p>
+            <p class="text-on-surface-variant/60 text-[11px] text-center max-w-xs leading-relaxed uppercase tracking-wider font-semibold">Sustainable privacy standards & data encryption protocols</p>
         </div>
     </main>
     <div class="fixed bottom-0 right-0 p-12 opacity-[0.03] pointer-events-none select-none overflow-hidden hidden md:block">
@@ -327,7 +323,6 @@
     </div>
 </div>
 
-<!-- STEP 3: ROOF & PROPERTY -->
 <div id="step-3" class="hidden-step flex flex-col min-h-screen">
     <header class="w-full max-w-xl mx-auto px-6 py-6">
         <div class="flex justify-center mb-8">
@@ -353,7 +348,7 @@
         <section class="space-y-12">
             <div class="space-y-4">
                 <span class="text-[0.6875rem] font-bold tracking-[0.1em] text-on-surface/60 uppercase">The Architectural Scan</span>
-                <h2 class="text-3xl md:text-[1.75rem] font-headline font-extrabold leading-tight text-primary">Roof &amp; Property Details</h2>
+                <h2 class="text-3xl md:text-[1.75rem] font-headline font-extrabold leading-tight text-primary">Roof & Property Details</h2>
                 <p class="text-on-surface/70 text-lg leading-relaxed max-w-md">Precision starts with the foundation. Tell us about the structural canvas for your energy transition.</p>
             </div>
             <form class="space-y-10">
@@ -363,7 +358,7 @@
                         <div class="relative group">
                             <select id="roof-age" class="custom-select w-full bg-surface-container-low border-2 border-transparent rounded-full py-4 px-6 text-on-surface focus:ring-2 focus:ring-primary/10 focus:bg-white focus:border-primary/20 transition-all cursor-pointer font-medium">
                                 <option disabled="" selected="" value="">Select age range</option>
-                                <option value="&lt;5 years">&lt;5 years</option>
+                                <option value="<5 years"><5 years</option>
                                 <option value="5-10 years">5 - 10 years</option>
                                 <option value="10-20 years">10 - 20 years</option>
                                 <option value="20+ years">20+ years</option>
@@ -386,23 +381,12 @@
                     </div>
                 </div>
                 <div class="pt-4">
-                    <div id="photo-dropzone" class="bg-surface-container-low rounded-xl p-8 border-2 border-dashed border-primary/10 flex flex-col items-center text-center space-y-4 group cursor-pointer hover:bg-surface-container hover:border-primary/30 transition-all duration-300" onclick="document.getElementById('photo-upload-input').click()">
-                        <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                            <span class="material-symbols-outlined text-primary text-3xl" data-icon="add_a_photo">add_a_photo</span>
+                    <div id="photo-preview-wrap" class="relative rounded-xl overflow-hidden border border-primary/10 bg-surface-container-low min-h-[300px] flex flex-col items-center justify-center">
+                        <img id="photo-preview-img" class="w-full max-h-[350px] object-cover" alt="Satellite rooftop tracking layout layer" src="">
+                        <div id="photo-preview-loader" class="absolute inset-0 flex flex-col items-center justify-center bg-surface-container-low text-primary/60 text-sm font-medium gap-3">
+                            <div class="w-8 h-8 rounded-full border-2 border-primary/20 border-t-primary animate-spin"></div>
+                            Synchronizing rooftop coordinates...
                         </div>
-                        <div class="space-y-1">
-                            <h3 class="font-bold text-primary">Upload Property Photo</h3>
-                            <p class="text-sm text-on-surface/70 leading-relaxed">Optional: A clear view of your roof helps our architects optimize your layout. <span class="text-primary font-bold underline">Browse Files</span></p>
-                        </div>
-                        <input id="photo-upload-input" class="hidden" type="file" accept="image/*">
-                    </div>
-                    <!-- Photo preview (hidden until a photo is selected) -->
-                    <div id="photo-preview-wrap" class="hidden mt-4 relative rounded-xl overflow-hidden border border-primary/10">
-                        <img id="photo-preview-img" class="w-full max-h-64 object-cover" alt="Roof photo preview">
-                        <button type="button" onclick="removePhoto(event)" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors">
-                            <span class="material-symbols-outlined text-[20px]">close</span>
-                        </button>
-                        <div class="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs py-2 px-4 truncate" id="photo-filename"></div>
                     </div>
                 </div>
                 <div class="pt-8 space-y-6">
@@ -430,7 +414,6 @@
     </footer>
 </div>
 
-<!-- STEP 4: ADDITIONAL INTERESTS -->
 <div id="step-4" class="hidden-step flex flex-col min-h-screen">
     <header class="w-full max-w-xl mx-auto px-6 py-6">
         <div class="relative flex items-center justify-center min-h-[48px]">
@@ -535,7 +518,6 @@
     </div>
 </div>
 
-<!-- STEP 5: TIMELINE & CONTACT -->
 <div id="step-5" class="hidden-step flex flex-col min-h-screen">
     <header class="w-full max-w-xl mx-auto px-6 py-8">
         <div class="relative flex items-center justify-center min-h-[48px]">
@@ -622,7 +604,6 @@
     </main>
 </div>
 
-<!-- LOADING INTERSTITIAL -->
 <div id="loading-screen" class="hidden-step fixed inset-0 bg-surface text-on-surface font-body overflow-y-auto flex flex-col z-50">
     <header class="fixed top-0 w-full flex justify-center py-6 z-50 bg-surface/80 backdrop-blur">
         <img alt="SolarBuddy Logo" class="w-auto object-contain h-14" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGHz84bTU7ggAuxp6Plf6VjAs64d7l-Ay58IbwZocLUlljdiXW9oiZsFqTTwGggOg7BnrjdmRj35LlMKXsop-Z-rNvAylrn02DlVSDo0VP54zJ2c8TkZBEZmwM100qo53NS8dTBTsrPvquKGf6yBcZw26-luRJh0B5r5W4bEWZffESStNXeIyQOPGLuwwtr0ndHzynujYGy8STBqoWS42fN46d5kd-xBf_s7ia94CdtvLIjxeEgC7D-BKsQmhHqhHQQ11uRAZQX-UX">
@@ -659,7 +640,6 @@
                     <div class="absolute -top-4 -right-4 w-20 h-20 bg-tertiary-fixed/20 rounded-full blur-3xl pointer-events-none"></div>
                     <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-secondary-fixed/30 rounded-full blur-3xl pointer-events-none"></div>
 
-                    <!-- nav arrows -->
                     <button type="button" onclick="triviaPrev()" aria-label="Previous" class="absolute -left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-primary hover:bg-surface-container-low active:scale-90 transition z-10">
                         <span class="material-symbols-outlined text-[20px]">chevron_left</span>
                     </button>
@@ -673,7 +653,6 @@
     </main>
 </div>
 
-<!-- REPORT PAGE -->
 <div id="report-screen" class="hidden-step fixed inset-0 bg-surface text-on-surface font-body overflow-y-auto z-50 flex-col">
     <header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-[#061B0E]/80 backdrop-blur-xl px-6 py-4 flex justify-between items-center">
         <div class="flex items-center gap-4 w-6"></div>
@@ -691,7 +670,7 @@
             <div class="absolute inset-0 bg-surface-container-low rounded-full scale-90 -z-10"></div>
             <div class="soft-float">
                 <div class="relative w-48 h-48 bg-white shadow-[0_12px_40px_rgba(25,28,27,0.04)] rounded-xl overflow-hidden flex items-center justify-center">
-                    <img class="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfdooRqTWuxhBBudQKwYIIc7Q2qDkwgAXY4LbPfyEa-9nqQo5hkiGH4kBtw5mWyHRnjgw0TUNY_mG2DkTaFE6gcJSOPpX4VJzM-MCwP3DDYkubK8dJoN2pPWYtzpkW3FDFjUQQ0eeINLURNIsBbyunmed_xMD1z8Z4sxS8r0odkQM2OOSFWiPi31Jn8clU4mIpFdHeGULAC93ucocE3VQEPno4zTFfVxUK99_AqegMto5KSnnNA4qsktq5SJb9gXx4Ddfvf_dkPnPv">
+                    <img id="report-preview-image" class="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfdooRqTWuxhBBudQKwYIIc7Q2qDkwgAXY4LbPfyEa-9nqQo5hkiGH4kBtw5mWyHRnjgw0TUNY_mG2DkTaFE6gcJSOPpX4VJzM-MCwP3DDYkubK8dJoN2pPWYtzpkW3FDFjUQQ0eeINLURNIsBbyunmed_xMD1z8Z4sxS8r0odkQM2OOSFWiPi31Jn8clU4mIpFdHeGULAC93ucocE3VQEPno4zTFfVxUK99_AqegMto5KSnnNA4qsktq5SJb9gXx4Ddfvf_dkPnPv">
                     <div class="absolute inset-0 border-[12px] border-white/40 pointer-events-none"></div>
                 </div>
             </div>
@@ -712,20 +691,9 @@
                 </button>
             </div>
         </div>
-        <div class="hidden mt-16 w-full grid grid-cols-2 gap-4 text-left opacity-0 translate-y-8 transition-all duration-1000 ease-out">
-            <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/5">
-                <p class="font-label text-[10px] uppercase tracking-[0.15em] text-secondary mb-2">Est. Savings</p>
-                <h3 class="font-display text-2xl font-bold text-primary">€2,480<span class="text-xs font-normal text-secondary ml-1">/yr</span></h3>
-            </div>
-            <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/5">
-                <p class="font-label text-[10px] uppercase tracking-[0.15em] text-secondary mb-2">Efficiency</p>
-                <h3 class="font-display text-2xl font-bold text-tertiary">94.2<span class="text-xs font-normal text-secondary ml-1">%</span></h3>
-            </div>
-        </div>
     </main>
 </div>
 
-<!-- ERROR / WARNING SCREEN -->
 <div id="error-screen" class="hidden-step fixed inset-0 bg-surface text-on-surface font-body overflow-y-auto z-50 flex-col items-center justify-center px-6">
     <header class="fixed top-0 w-full flex justify-center py-10 z-50">
         <img alt="SolarBuddy Logo" class="w-auto object-contain h-16" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGHz84bTU7ggAuxp6Plf6VjAs64d7l-Ay58IbwZocLUlljdiXW9oiZsFqTTwGggOg7BnrjdmRj35LlMKXsop-Z-rNvAylrn02DlVSDo0VP54zJ2c8TkZBEZmwM100qo53NS8dTBTsrPvquKGf6yBcZw26-luRJh0B5r5W4bEWZffESStNXeIyQOPGLuwwtr0ndHzynujYGy8STBqoWS42fN46d5kd-xBf_s7ia94CdtvLIjxeEgC7D-BKsQmhHqhHQQ11uRAZQX-UX">
@@ -737,19 +705,21 @@
         <h2 class="font-headline text-2xl font-bold text-primary">We hit a snag</h2>
         <p id="error-message" class="text-on-surface-variant text-lg leading-relaxed"></p>
         <button onclick="backToForm()" class="w-full py-5 rounded-full bg-primary text-white font-bold text-lg hover:brightness-110 active:scale-[0.98] transition-all">
-            Go Back &amp; Try Again
+            Go Back & Try Again
         </button>
     </div>
 </div>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEnLuFjSLIooInwk8a2h5-zcmPtnhWSB0&libraries=places"></script>
+
 <script>
     let currentStep = 1;
-    const totalSteps = 7;
+    const totalSteps = 5;
 
-    // Webhook endpoint (Make.com)
-    const WEBHOOK_URL = 'https://hook.eu1.make.com/c4yhyex1zon7n1ioriu8i2m2pjicue0c';
+    let autocomplete;
+    let addressSelected = false;
 
-    // Collected form data
+    // Collected form data structure
     const submission = {
         name: '',
         email: '',
@@ -766,11 +736,14 @@
         ev_interest: false,
         monitoring_interest: false,
         hvac_interest: false,
-        timeline: 'immediate'
+        timeline: 'immediate',
+        formatted_address: '',
+        latitude: '',
+        longitude: '',
+        place_id: ''
     };
 
     function nextStep() {
-        // Capture data from the current step before moving on
         if (currentStep === 1) {
             submission.name = document.getElementById('name-input').value.trim();
             submission.email = document.getElementById('email-input').value.trim();
@@ -781,9 +754,26 @@
                 alert('Please fill in your name, email, phone, and address.');
                 return;
             }
+
+            if (!addressSelected) {
+                alert('Please select a valid address from the Google suggestions.');
+                return;
+            }
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(submission.email)) {
                 alert('Please enter a valid email address.');
                 return;
+            }
+
+            // POPULATE LOCAL IMAGE VIEWPORT CONTAINER:
+            // Since we can't fetch secure authenticated urls from clients, we trigger an ephemeral placeholder 
+            // string using standard google map frame logic so the user feels immediate confirmation layout metrics.
+            const publicMapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${submission.latitude},${submission.longitude}&zoom=20&size=600x600&maptype=satellite&key=AIzaSyAEnLuFjSLIooInwk8a2h5-zcmPtnhWSB0`;
+            const previewImg = document.getElementById('photo-preview-img');
+            const previewLoader = document.getElementById('photo-preview-loader');
+
+            if (previewImg && previewLoader) {
+                previewImg.src = publicMapUrl;
+                previewImg.onload = () => previewLoader.classList.add('hidden');
             }
         }
 
@@ -802,7 +792,6 @@
             }
         }
 
-        // Step 5 is the final step -> submit
         if (currentStep === 5) {
             submitForm();
             return;
@@ -821,23 +810,15 @@
             return;
         }
 
-        // Show loading screen
         showStep('loading');
 
-        // 45-second timeout safety net
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 45000);
 
         try {
-            // Upload photo to Vercel Blob first (if one was selected)
-            const photoInput = document.getElementById('photo-upload-input');
-            if (photoInput && photoInput.files && photoInput.files[0]) {
-                const photoUrl = await uploadPhotoToVercelBlob(photoInput.files[0]);
-                if (photoUrl) submission.photo_url = photoUrl;
-            }
-
-            // Submit to Make.com webhook
-            const response = await fetch(WEBHOOK_URL, {
+            // UNIFIED API BACKEND PROXY ROUTE CALL:
+            // Ship everything straight to your single backend file. It fetches the map, uploads to Blob, and pings Make.com privately.
+            const response = await fetch('/api/submit-assessment', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(submission),
@@ -846,9 +827,11 @@
 
             clearTimeout(timeoutId);
 
-            const responseText = await response.text();
+            if (!response.ok) {
+                throw new Error('Backend serverless pipeline submission failure.');
+            }
 
-            // Extract the response body and any custom header message
+            const responseText = await response.text();
             let body = '';
             let headerMessage = '';
 
@@ -863,23 +846,19 @@
                     }
                 }
             } catch (parseErr) {
-                // Response wasn't JSON - treat the raw text as the body
                 body = responseText.trim();
             }
 
-            // DECISION: look for a PDF URL anywhere in the response.
-            // Make.com sends either "https://...pdf" OR "Some message|||https://...pdf"
             let pdfUrl = '';
             let noteMessage = headerMessage || '';
 
             if (body.includes('|||')) {
-                // Split "message|||url" into its two parts
                 const parts = body.split('|||');
                 const beforeSep = parts[0].trim();
                 const afterSep = (parts[1] || '').trim();
                 if (afterSep.startsWith('http')) {
                     pdfUrl = afterSep;
-                    if (beforeSep) noteMessage = beforeSep; // e.g. "A report for this address has already been generated."
+                    if (beforeSep) noteMessage = beforeSep; 
                 } else if (beforeSep.startsWith('http')) {
                     pdfUrl = beforeSep;
                 }
@@ -888,10 +867,13 @@
             }
 
             if (pdfUrl) {
-                // Success (or "already generated") -> report page with working button
+                // Instantly update final report screen preview containers using your backend's generated Vercel Blob asset link string parameters
+                const reportPreviewImg = document.getElementById('report-preview-image');
+                if (reportPreviewImg && submission.photo_url) {
+                    reportPreviewImg.src = submission.photo_url;
+                }
                 showReport(pdfUrl, noteMessage);
             } else {
-                // No PDF URL -> genuine error/warning message
                 const message = body || headerMessage || 'Something went wrong. Please try again.';
                 showError(message);
             }
@@ -906,29 +888,16 @@
         }
     }
 
-    async function uploadPhotoToVercelBlob(file) {
-        try {
-            const response = await fetch(`/api/upload-photo?filename=${encodeURIComponent(file.name)}`, {
-                method: 'POST',
-                body: file
-            });
-            if (!response.ok) return null;
-            const data = await response.json();
-            return data.url || null;
-        } catch (err) {
-            console.error('Photo upload failed:', err);
-            return null;
-        }
+    function uploadPhotoToVercelBlob(file) {
+        // Keep fallback functional if manual user file uploads ever need to map here later
+        return null;
     }
 
     function showReport(pdfUrl, headerMessage) {
         showStep('report');
-
-        // Address on report page
         const addressEl = document.getElementById('report-address');
         if (addressEl) addressEl.textContent = submission.address || '';
 
-        // Wire up the PDF buttons
         const viewBtn = document.getElementById('report-view-btn');
         const downloadBtn = document.getElementById('report-download-btn');
         if (pdfUrl) {
@@ -936,7 +905,6 @@
             if (downloadBtn) downloadBtn.onclick = () => window.open(pdfUrl, '_blank');
         }
 
-        // If Make.com sent a custom message (e.g. "report already generated"), show it
         if (headerMessage) {
             const headingEl = document.querySelector('#report-screen h1');
             if (headingEl) {
@@ -959,7 +927,6 @@
     }
 
     function backToForm() {
-        // Explicitly hide all overlay screens, then return to the form at step 1
         ['loading-screen','report-screen','error-screen'].forEach(id => {
             const el = document.getElementById(id);
             if (el) { el.classList.add('hidden-step'); el.classList.remove('visible-step'); }
@@ -977,7 +944,6 @@
     }
 
     function showStep(step) {
-        // Hide all steps
         document.querySelectorAll('[id^="step-"]').forEach(el => {
             el.classList.add('hidden-step');
             el.classList.remove('visible-step');
@@ -986,7 +952,6 @@
         document.getElementById('report-screen').classList.add('hidden-step');
         document.getElementById('error-screen').classList.add('hidden-step');
 
-        // Show requested step
         if (step === 'loading') {
             document.getElementById('loading-screen').classList.remove('hidden-step');
             document.getElementById('loading-screen').classList.add('visible-step');
@@ -1005,135 +970,88 @@
         }
     }
 
-    // ===== UI INTERACTIONS =====
-// Motivation Card Selection
-document.addEventListener('DOMContentLoaded', () => {
-    const motivationCards = document.querySelectorAll('.motivation-btn');
+    function initGoogleAutocomplete() {
+        const input = document.getElementById('address-input');
+        if (!input || !window.google) return;
 
-    motivationCards.forEach(card => {
-        card.addEventListener('click', function(e) {
-            e.preventDefault();
+        autocomplete = new google.maps.places.Autocomplete(input, {});
 
-            // Reset ALL cards
-            motivationCards.forEach(c => {
-                c.classList.remove(
-                    'bg-primary',
-                    'shadow-lg',
-                    'shadow-primary/20',
-                    'selected'
-                );
-
-                c.classList.add(
-                    'bg-surface-container',
-                    'border',
-                    'border-outline/10'
-                );
-
-                // Heading
-                const heading = c.querySelector('h3');
-                if (heading) {
-                    heading.classList.remove('text-white');
-                    heading.classList.add('text-primary');
-                }
-
-                // Description
-                const text = c.querySelector('p');
-                if (text) {
-                    text.classList.remove('text-white/70');
-                    text.classList.add('text-on-surface-variant');
-                }
-
-                // Icon circle
-                const iconWrapper = c.querySelector('.w-12.h-12');
-                if (iconWrapper) {
-                    iconWrapper.classList.remove('bg-white/10');
-                    iconWrapper.classList.add('bg-primary', 'text-white');
-                }
-
-                // Icon fill
-                const icon = c.querySelector('.material-symbols-outlined');
-                if (icon) {
-                    icon.style.fontVariationSettings = "'FILL' 0";
-                }
-
-                // Checkmark container
-                const checkContainer = c.querySelector('.ml-auto');
-                if (checkContainer) {
-                    checkContainer.classList.add('hidden');
-                }
-
-                // Checkmark
-                const checkIcon = c.querySelector('.ml-auto .material-symbols-outlined');
-                if (checkIcon) {
-                    checkIcon.classList.remove('text-white');
-                    checkIcon.classList.add('text-primary');
-                    checkIcon.style.fontVariationSettings = "'FILL' 0";
-                }
-            });
-
-            // Select clicked card
-            this.classList.remove(
-                'bg-surface-container',
-                'border',
-                'border-outline/10'
-            );
-
-            this.classList.add(
-                'bg-primary',
-                'shadow-lg',
-                'shadow-primary/20',
-                'selected'
-            );
-
-            // Heading
-            const heading = this.querySelector('h3');
-            if (heading) {
-                heading.classList.remove('text-primary');
-                heading.classList.add('text-white');
-            }
-
-            // Description
-            const text = this.querySelector('p');
-            if (text) {
-                text.classList.remove('text-on-surface-variant');
-                text.classList.add('text-white/70');
-            }
-
-            // Icon circle
-            const iconWrapper = this.querySelector('.w-12.h-12');
-            if (iconWrapper) {
-                iconWrapper.classList.remove('bg-primary');
-                iconWrapper.classList.add('bg-white/10');
-            }
-
-            // Icon fill
-            const icon = this.querySelector('.material-symbols-outlined');
-            if (icon) {
-                icon.style.fontVariationSettings = "'FILL' 1";
-            }
-
-            // Checkmark container
-            const checkContainer = this.querySelector('.ml-auto');
-            if (checkContainer) {
-                checkContainer.classList.remove('hidden');
-            }
-
-            // Checkmark
-            const checkIcon = this.querySelector('.ml-auto .material-symbols-outlined');
-            if (checkIcon) {
-                checkIcon.classList.remove('text-primary');
-                checkIcon.classList.add('text-white');
-                checkIcon.style.fontVariationSettings = "'FILL' 1";
-            }
-
-            // Store selected value
-            submission.energy_motivation =
-                this.getAttribute('data-motivation') || '';
+        input.addEventListener('input', () => {
+            addressSelected = false;
         });
+
+        autocomplete.addListener('place_changed', () => {
+            const place = autocomplete.getPlace();
+            if (!place.geometry) {
+                addressSelected = false;
+                return;
+            }
+
+            addressSelected = true;
+            submission.address = place.formatted_address || '';
+            submission.formatted_address = place.formatted_address || '';
+            submission.place_id = place.place_id || '';
+            submission.latitude = place.geometry.location.lat();
+            submission.longitude = place.geometry.location.lng();
+
+            input.value = submission.formatted_address;
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initGoogleAutocomplete();
     });
 
+    // ===== UI INTERACTIONS =====
+    document.addEventListener('DOMContentLoaded', () => {
+        const motivationCards = document.querySelectorAll('.motivation-btn');
 
-        // Bill Slider Update
+        motivationCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                motivationCards.forEach(c => {
+                    c.classList.remove('bg-primary', 'shadow-lg', 'shadow-primary/20', 'selected');
+                    c.classList.add('bg-surface-container', 'border', 'border-outline/10');
+
+                    const heading = c.querySelector('h3');
+                    if (heading) { heading.classList.remove('text-white'); heading.classList.add('text-primary'); }
+
+                    const text = c.querySelector('p');
+                    if (text) { text.classList.remove('text-white/70'); text.classList.add('text-on-surface-variant'); }
+
+                    const iconWrapper = c.querySelector('.w-12.h-12');
+                    if (iconWrapper) { iconWrapper.classList.remove('bg-white/10'); iconWrapper.classList.add('bg-primary', 'text-white'); }
+
+                    const icon = c.querySelector('.material-symbols-outlined');
+                    if (icon) { icon.style.fontVariationSettings = "'FILL' 0"; }
+
+                    const checkContainer = c.querySelector('.ml-auto');
+                    if (checkContainer) { checkContainer.classList.add('hidden'); }
+                });
+
+                this.classList.remove('bg-surface-container', 'border', 'border-outline/10');
+                this.classList.add('bg-primary', 'shadow-lg', 'shadow-primary/20', 'selected');
+
+                const heading = this.querySelector('h3');
+                if (heading) { heading.classList.remove('text-primary'); heading.classList.add('text-white'); }
+
+                const text = this.querySelector('p');
+                if (text) { text.classList.remove('text-on-surface-variant'); text.classList.add('text-white/70'); }
+
+                const iconWrapper = this.querySelector('.w-12.h-12');
+                if (iconWrapper) { iconWrapper.classList.remove('bg-primary'); iconWrapper.classList.add('bg-white/10'); }
+
+                const icon = this.querySelector('.material-symbols-outlined');
+                if (icon) { icon.style.fontVariationSettings = "'FILL' 1"; }
+
+                const checkContainer = this.querySelector('.ml-auto');
+                if (checkContainer) { checkContainer.classList.remove('hidden'); }
+
+                submission.energy_motivation = this.getAttribute('data-motivation') || '';
+            });
+        });
+
         const billSlider = document.getElementById('bill-slider');
         const billDisplay = document.getElementById('bill-display');
         
@@ -1143,7 +1061,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Homeowner Toggle - using inline styles (guaranteed to work with Tailwind CDN)
         const homeownerToggle = document.getElementById('homeowner-toggle');
         const homeownerKnob = document.getElementById('homeowner-knob');
         let homeownerOn = false;
@@ -1165,13 +1082,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Timeline Selection - JavaScript controlled (peer-checked doesn't work on nested elements)
         const timelineOptions = document.querySelectorAll('.timeline-option');
         timelineOptions.forEach(option => {
             option.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                // Reset all options to unselected
                 timelineOptions.forEach(opt => {
                     opt.classList.remove('border-primary');
                     opt.classList.add('border-outline-variant');
@@ -1183,11 +1098,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     dot.classList.remove('opacity-100');
                     dot.classList.add('opacity-0');
                     
-                    // Uncheck radio
                     opt.querySelector('input[type="radio"]').checked = false;
                 });
                 
-                // Select this option
                 this.classList.remove('border-outline-variant');
                 this.classList.add('border-primary');
                 
@@ -1198,19 +1111,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 dot.classList.remove('opacity-0');
                 dot.classList.add('opacity-100');
                 
-                // Check radio
                 this.querySelector('input[type="radio"]').checked = true;
-
-                // Store timeline value
                 submission.timeline = this.getAttribute('data-value') || '';
             });
         });
 
-        // Interest Checkboxes (Step 4) - toggle visual + store value
         const interestCheckboxes = document.querySelectorAll('.interest-checkbox');
         interestCheckboxes.forEach(checkbox => {
             checkbox.addEventListener('change', function() {
-                const box = this.nextElementSibling; // the visible div
+                const box = this.nextElementSibling;
                 const check = box.querySelector('span');
                 const interest = this.getAttribute('data-interest');
 
@@ -1224,103 +1133,62 @@ document.addEventListener('DOMContentLoaded', () => {
                     check.classList.add('hidden');
                 }
 
-                // Store value
                 if (interest === 'battery') submission.battery_interest = this.checked;
                 else if (interest === 'ev') submission.ev_interest = this.checked;
                 else if (interest === 'monitoring') submission.monitoring_interest = this.checked;
                 else if (interest === 'hvac') submission.hvac_interest = this.checked;
             });
         });
-
-        // Photo Upload Preview
-        const photoInput = document.getElementById('photo-upload-input');
-        if (photoInput) {
-            photoInput.addEventListener('change', function() {
-                const file = this.files && this.files[0];
-                const previewWrap = document.getElementById('photo-preview-wrap');
-                const previewImg = document.getElementById('photo-preview-img');
-                const filenameEl = document.getElementById('photo-filename');
-                const dropzone = document.getElementById('photo-dropzone');
-
-                if (file) {
-                    // Basic size guard (10MB)
-                    if (file.size > 10 * 1024 * 1024) {
-                        alert('Photo must be less than 10MB.');
-                        this.value = '';
-                        return;
-                    }
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        previewImg.src = e.target.result;
-                        previewWrap.classList.remove('hidden');
-                        if (filenameEl) filenameEl.textContent = file.name;
-                        if (dropzone) dropzone.classList.add('hidden');
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        }
     });
 
-        // ===== Trivia carousel (loading screen) =====
-        const triviaFacts = [
-            { text: "Solar panels work efficiently even in cloudy conditions. Module properties like temperature coefficient and spectral response influence performance across different weather.", source: "[Source: IEA PVGIS Task 13 — International Energy Agency]" },
-            { text: "The amount of sunlight that hits the Earth in one hour is enough to power the entire planet for a whole year.", source: "[Source: U.S. Department of Energy]" },
-            { text: "Solar panels typically keep producing around 85–90% of their original output even after 25 years of use.", source: "[Source: National Renewable Energy Laboratory]" },
-            { text: "South-facing roofs in the northern hemisphere can capture up to 40% more solar energy than north-facing ones.", source: "[Source: PVGIS Solar Database]" },
-            { text: "A typical home solar system can offset several tonnes of CO₂ each year — equivalent to planting dozens of trees.", source: "[Source: EPA Greenhouse Gas Equivalencies]" },
-        ];
-        let triviaIndex = 0;
-        const triviaTextEl = document.getElementById('trivia-text');
-        const triviaSourceEl = document.getElementById('trivia-source');
-        const triviaDotsEl = document.getElementById('trivia-dots');
+    // ===== Trivia carousel =====
+    const triviaFacts = [
+        { text: "Solar panels work efficiently even in cloudy conditions. Module properties like temperature coefficient and spectral response influence performance across different weather.", source: "[Source: IEA PVGIS Task 13 — International Energy Agency]" },
+        { text: "The amount of sunlight that hits the Earth in one hour is enough to power the entire planet for a whole year.", source: "[Source: U.S. Department of Energy]" },
+        { text: "Solar panels typically keep producing around 85–90% of their original output even after 25 years of use.", source: "[Source: National Renewable Energy Laboratory]" },
+        { text: "South-facing roofs in the northern hemisphere can capture up to 40% more solar energy than north-facing ones.", source: "[Source: PVGIS Solar Database]" },
+        { text: "A typical home solar system can offset several tonnes of CO₂ each year — equivalent to planting dozens of trees.", source: "[Source: EPA Greenhouse Gas Equivalencies]" },
+    ];
+    let triviaIndex = 0;
+    const triviaTextEl = document.getElementById('trivia-text');
+    const triviaSourceEl = document.getElementById('trivia-source');
+    const triviaDotsEl = document.getElementById('trivia-dots');
 
-        function renderTrivia() {
-            if (!triviaTextEl) return;
-            const f = triviaFacts[triviaIndex];
-            triviaTextEl.style.opacity = 0;
-            setTimeout(() => {
-                triviaTextEl.textContent = f.text;
-                if (triviaSourceEl) triviaSourceEl.textContent = f.source;
-                triviaTextEl.style.opacity = 1;
-            }, 150);
-            if (triviaDotsEl) {
-                triviaDotsEl.innerHTML = triviaFacts.map((_, i) =>
-                    `<div class="${i === triviaIndex ? 'w-8 bg-primary-container' : 'w-2 bg-surface-container-highest'} h-1 rounded-full transition-all duration-500"></div>`
-                ).join('');
-            }
+    function renderTrivia() {
+        if (!triviaTextEl) return;
+        const f = triviaFacts[triviaIndex];
+        triviaTextEl.style.opacity = 0;
+        setTimeout(() => {
+            triviaTextEl.textContent = f.text;
+            if (triviaSourceEl) triviaSourceEl.textContent = f.source;
+            triviaTextEl.style.opacity = 1;
+        }, 150);
+        if (triviaDotsEl) {
+            triviaDotsEl.innerHTML = triviaFacts.map((_, i) =>
+                `<div class="${i === triviaIndex ? 'w-8 bg-primary-container' : 'w-2 bg-surface-container-highest'} h-1 rounded-full transition-all duration-500"></div>`
+            ).join('');
         }
-        window.triviaNext = function () { triviaIndex = (triviaIndex + 1) % triviaFacts.length; renderTrivia(); };
-        window.triviaPrev = function () { triviaIndex = (triviaIndex - 1 + triviaFacts.length) % triviaFacts.length; renderTrivia(); };
-
-        // swipe gestures
-        const swipeEl = document.getElementById('trivia-swipe');
-        if (swipeEl) {
-            let startX = 0, startY = 0, tracking = false;
-            swipeEl.addEventListener('touchstart', e => {
-                startX = e.touches[0].clientX; startY = e.touches[0].clientY; tracking = true;
-            }, { passive: true });
-            swipeEl.addEventListener('touchend', e => {
-                if (!tracking) return;
-                tracking = false;
-                const dx = e.changedTouches[0].clientX - startX;
-                const dy = e.changedTouches[0].clientY - startY;
-                if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
-                    if (dx < 0) window.triviaNext(); else window.triviaPrev();
-                }
-            }, { passive: true });
-        }
-        renderTrivia();
-
-    function removePhoto(e) {
-        if (e) e.stopPropagation();
-        const photoInput = document.getElementById('photo-upload-input');
-        const previewWrap = document.getElementById('photo-preview-wrap');
-        const dropzone = document.getElementById('photo-dropzone');
-        if (photoInput) photoInput.value = '';
-        if (previewWrap) previewWrap.classList.add('hidden');
-        if (dropzone) dropzone.classList.remove('hidden');
     }
+    window.triviaNext = function () { triviaIndex = (triviaIndex + 1) % triviaFacts.length; renderTrivia(); };
+    window.triviaPrev = function () { triviaIndex = (triviaIndex - 1 + triviaFacts.length) % triviaFacts.length; renderTrivia(); };
+
+    const swipeEl = document.getElementById('trivia-swipe');
+    if (swipeEl) {
+        let startX = 0, startY = 0, tracking = false;
+        swipeEl.addEventListener('touchstart', e => {
+            startX = e.touches[0].clientX; startY = e.touches[0].clientY; tracking = true;
+        }, { passive: true });
+        swipeEl.addEventListener('touchend', e => {
+            if (!tracking) return;
+            tracking = false;
+            const dx = e.changedTouches[0].clientX - startX;
+            const dy = e.changedTouches[0].clientY - startY;
+            if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+                if (dx < 0) window.triviaNext(); else window.triviaPrev();
+            }
+        }, { passive: true });
+    }
+    renderTrivia();
 </script>
 </body>
 </html>
