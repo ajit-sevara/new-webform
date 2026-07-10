@@ -765,15 +765,18 @@
             }
 
             // POPULATE LOCAL IMAGE VIEWPORT CONTAINER:
-            // Since we can't fetch secure authenticated urls from clients, we trigger an ephemeral placeholder 
-            // string using standard google map frame logic so the user feels immediate confirmation layout metrics.
+            // Key is HTTP-referrer-restricted in Google Cloud Console to this domain,
+            // so it's safe to call Static Maps directly from the browser here.
             const publicMapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${submission.latitude},${submission.longitude}&zoom=20&size=600x600&maptype=satellite&key=AIzaSyAEnLuFjSLIooInwk8a2h5-zcmPtnhWSB0`;
             const previewImg = document.getElementById('photo-preview-img');
             const previewLoader = document.getElementById('photo-preview-loader');
 
             if (previewImg && previewLoader) {
-                previewImg.src = publicMapUrl;
                 previewImg.onload = () => previewLoader.classList.add('hidden');
+                previewImg.onerror = () => {
+                    previewLoader.innerHTML = '<span class="text-sm">Could not load rooftop preview. You can still continue.</span>';
+                };
+                previewImg.src = publicMapUrl;
             }
         }
 
