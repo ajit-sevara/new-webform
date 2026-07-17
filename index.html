@@ -133,6 +133,20 @@
         .visible-step {
             display: flex !important;
         }
+        .field-error {
+            display: none;
+            color: #ba1a1a;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            padding-left: 0.5rem;
+        }
+        .field-error.show {
+            display: block;
+        }
+        .input-invalid {
+            border-color: #ba1a1a !important;
+        }
     </style>
 </head>
 <body class="bg-background font-body text-on-surface antialiased">
@@ -163,23 +177,32 @@
         <section class="mb-12">
             <h3 class="font-label text-xs uppercase tracking-[0.2em] text-primary/60 mb-6 block font-bold">Your Information</h3>
             <div class="space-y-4">
-                <div class="relative group">
-                    <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                        <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors">person</span>
+                <div>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors">person</span>
+                        </div>
+                        <input id="name-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Full Name" type="text">
                     </div>
-                    <input id="name-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Full Name" type="text">
+                    <p id="name-error" class="field-error">Please enter your full name.</p>
                 </div>
-                <div class="relative group">
-                    <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                        <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors">mail</span>
+                <div>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors">mail</span>
+                        </div>
+                        <input id="email-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Email Address" type="email">
                     </div>
-                    <input id="email-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Email Address" type="email">
+                    <p id="email-error" class="field-error">Please enter a valid email address.</p>
                 </div>
-                <div class="relative group">
-                    <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                        <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors">phone</span>
+                <div>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors">phone</span>
+                        </div>
+                        <input id="phone-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Mobile Number" type="tel">
                     </div>
-                    <input id="phone-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Mobile Number" type="tel">
+                    <p id="phone-error" class="field-error">Please enter a valid 10-digit mobile number.</p>
                 </div>
             </div>
         </section>
@@ -188,11 +211,14 @@
             <h3 class="font-label text-xs uppercase tracking-[0.2em] text-primary/60 mb-6 block font-bold">Solar Feasibility</h3>
             <p class="text-primary/70 text-lg font-light leading-relaxed mb-6">Where are you located? We'll analyze your rooftop's sun exposure using high-resolution satellite imagery.</p>
             <div class="space-y-6">
-                <div class="relative group">
-                    <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-                        <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors" data-icon="location_on">location_on</span>
+                <div>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors" data-icon="location_on">location_on</span>
+                        </div>
+                        <input id="address-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Enter your street address" type="text">
                     </div>
-                    <input id="address-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Enter your street address" type="text">
+                    <p id="address-error" class="field-error">Please select a valid address from the suggestions.</p>
                 </div>
             </div>
         </section>
@@ -351,6 +377,13 @@
                 <h2 class="text-3xl md:text-[1.75rem] font-headline font-extrabold leading-tight text-primary">Roof & Property Details</h2>
                 <p class="text-on-surface/70 text-lg leading-relaxed max-w-md">Precision starts with the foundation. Tell us about the structural canvas for your energy transition.</p>
             </div>
+            <div id="photo-preview-wrap" class="relative rounded-xl overflow-hidden border border-primary/10 bg-surface-container-low min-h-[300px] flex flex-col items-center justify-center">
+                <img id="photo-preview-img" class="w-full max-h-[350px] object-cover" alt="Satellite rooftop tracking layout layer" src="">
+                <div id="photo-preview-loader" class="absolute inset-0 flex flex-col items-center justify-center bg-surface-container-low text-primary/60 text-sm font-medium gap-3">
+                    <div class="w-8 h-8 rounded-full border-2 border-primary/20 border-t-primary animate-spin"></div>
+                    Synchronizing rooftop coordinates...
+                </div>
+            </div>
             <form class="space-y-10">
                 <div class="grid grid-cols-1 gap-8">
                     <div class="space-y-3">
@@ -377,15 +410,6 @@
                                 <option value="Flat">Flat</option>
                                 <option value="Other/Unsure">Other/Unsure</option>
                             </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="pt-4">
-                    <div id="photo-preview-wrap" class="relative rounded-xl overflow-hidden border border-primary/10 bg-surface-container-low min-h-[300px] flex flex-col items-center justify-center">
-                        <img id="photo-preview-img" class="w-full max-h-[350px] object-cover" alt="Satellite rooftop tracking layout layer" src="">
-                        <div id="photo-preview-loader" class="absolute inset-0 flex flex-col items-center justify-center bg-surface-container-low text-primary/60 text-sm font-medium gap-3">
-                            <div class="w-8 h-8 rounded-full border-2 border-primary/20 border-t-primary animate-spin"></div>
-                            Synchronizing rooftop coordinates...
                         </div>
                     </div>
                 </div>
@@ -743,24 +767,73 @@
         place_id: ''
     };
 
+    // ===== Inline field-error helpers =====
+    function showFieldError(inputId, errorId) {
+        const input = document.getElementById(inputId);
+        const error = document.getElementById(errorId);
+        if (input) input.classList.add('input-invalid');
+        if (error) error.classList.add('show');
+    }
+
+    function clearFieldError(inputId, errorId) {
+        const input = document.getElementById(inputId);
+        const error = document.getElementById(errorId);
+        if (input) input.classList.remove('input-invalid');
+        if (error) error.classList.remove('show');
+    }
+
+    function clearStep1Errors() {
+        clearFieldError('name-input', 'name-error');
+        clearFieldError('email-input', 'email-error');
+        clearFieldError('phone-input', 'phone-error');
+        clearFieldError('address-input', 'address-error');
+    }
+
+    function isValidEmail(value) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    function isValidPhone(value) {
+        const digitsOnly = value.replace(/\D/g, '');
+        return digitsOnly.length === 10;
+    }
+
+    function validateStep1() {
+        clearStep1Errors();
+
+        submission.name = document.getElementById('name-input').value.trim();
+        submission.email = document.getElementById('email-input').value.trim();
+        submission.phone = document.getElementById('phone-input').value.trim();
+        submission.address = document.getElementById('address-input').value.trim();
+
+        let isValid = true;
+
+        if (!submission.name) {
+            showFieldError('name-input', 'name-error');
+            isValid = false;
+        }
+
+        if (!submission.email || !isValidEmail(submission.email)) {
+            showFieldError('email-input', 'email-error');
+            isValid = false;
+        }
+
+        if (!submission.phone || !isValidPhone(submission.phone)) {
+            showFieldError('phone-input', 'phone-error');
+            isValid = false;
+        }
+
+        if (!submission.address || !addressSelected) {
+            showFieldError('address-input', 'address-error');
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
     function nextStep() {
         if (currentStep === 1) {
-            submission.name = document.getElementById('name-input').value.trim();
-            submission.email = document.getElementById('email-input').value.trim();
-            submission.phone = document.getElementById('phone-input').value.trim();
-            submission.address = document.getElementById('address-input').value.trim();
-
-            if (!submission.name || !submission.email || !submission.phone || !submission.address) {
-                alert('Please fill in your name, email, phone, and address.');
-                return;
-            }
-
-            if (!addressSelected) {
-                alert('Please select a valid address from the Google suggestions.');
-                return;
-            }
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(submission.email)) {
-                alert('Please enter a valid email address.');
+            if (!validateStep1()) {
                 return;
             }
 
@@ -981,6 +1054,7 @@
 
         input.addEventListener('input', () => {
             addressSelected = false;
+            clearFieldError('address-input', 'address-error');
         });
 
         autocomplete.addListener('place_changed', () => {
@@ -991,6 +1065,7 @@
             }
 
             addressSelected = true;
+            clearFieldError('address-input', 'address-error');
             submission.address = place.formatted_address || '';
             submission.formatted_address = place.formatted_address || '';
             submission.place_id = place.place_id || '';
@@ -1003,6 +1078,22 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         initGoogleAutocomplete();
+
+        // Clear inline errors as the user types/corrects each field
+        const nameInput = document.getElementById('name-input');
+        if (nameInput) {
+            nameInput.addEventListener('input', () => clearFieldError('name-input', 'name-error'));
+        }
+
+        const emailInput = document.getElementById('email-input');
+        if (emailInput) {
+            emailInput.addEventListener('input', () => clearFieldError('email-input', 'email-error'));
+        }
+
+        const phoneInput = document.getElementById('phone-input');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', () => clearFieldError('phone-input', 'phone-error'));
+        }
     });
 
     // ===== UI INTERACTIONS =====
