@@ -255,7 +255,7 @@
     <main class="flex-grow w-full max-w-xl mx-auto px-6 py-8 md:py-12">
         <section class="mb-12">
             <span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-primary/50 mb-4 block">Personalization</span>
-            <h2 class="font-headline text-3xl md:text-4xl font-bold text-primary tracking-tight mb-6">What drives your energy transition?</h2>
+            <h2 class="font-headline text-3xl md:text-4xl font-bold text-primary tracking-tight mb-6">What is motivating your interest in solar panels?</h2>
             <p class="text-on-surface-variant text-lg leading-relaxed max-w-md">Your motivation helps us tailor the architectural solar layout that best fits your lifestyle and financial goals.</p>
         </section>
         <div class="grid grid-cols-1 gap-4 mb-14" id="motivation-cards">
@@ -336,7 +336,8 @@
             </div>
             <button id="homeowner-toggle" type="button" class="relative inline-flex h-8 w-14 flex-shrink-0 cursor-pointer items-center rounded-full focus:outline-none bg-gray-300 transition-colors duration-200 ease-in-out px-1">
                 <span class="sr-only">Toggle Homeownership</span>
-                <span id="homeowner-knob" class="pointer-events-none inline-block h-6 w-6 rounded-full bg-white shadow-lg ring-0 transition-transform duration-200 ease-in-out" style="transform: translateX(0px);"></span>
+                <span id="homeowner-label" class="absolute inset-0 flex items-center justify-end pr-1.5 text-[9px] font-bold text-white tracking-wide pointer-events-none">NO</span>
+                <span id="homeowner-knob" class="pointer-events-none relative z-10 inline-block h-6 w-6 rounded-full bg-white shadow-lg ring-0 transition-transform duration-200 ease-in-out" style="transform: translateX(0px);"></span>
             </button>
         </section>
         <div class="mt-auto flex flex-col items-center gap-6 pb-10">
@@ -415,7 +416,7 @@
                 </div>
                 <div class="pt-8 space-y-6">
                     <button onclick="nextStep()" class="w-full bg-primary text-on-primary py-5 rounded-full font-bold text-base tracking-wide shadow-xl shadow-primary/10 hover:shadow-primary/20 transition-all active:scale-[0.98] duration-200" type="button">
-                        Analyze Roof Integrity
+                        Continue
                     </button>
                 </div>
             </form>
@@ -460,8 +461,8 @@
     <main class="flex-grow w-full max-w-xl mx-auto px-6 pt-12 pb-24">
         <section class="mb-16">
             <span class="font-label text-label-sm uppercase tracking-[0.1em] text-primary/60 mb-4 block font-bold">Ecosystem Enhancements</span>
-            <h2 class="font-headline text-[1.75rem] leading-tight font-bold text-primary tracking-tight mb-6">Refine your energy architecture.</h2>
-            <p class="text-on-surface leading-relaxed opacity-70 max-w-md">Select additional sustainable technologies to integrate into your home's private energy grid.</p>
+            <h2 class="font-headline text-[1.75rem] leading-tight font-bold text-primary tracking-tight mb-6">Are you considering any other services at this time?</h2>
+            <p class="text-on-surface leading-relaxed opacity-70 max-w-md">Let us know how interested/aware you are in these other sustainable technology services?</p>
         </section>
         <div class="space-y-4">
             <label class="group relative flex items-center justify-between p-6 bg-white border border-outline-variant/20 shadow-sm rounded-xl cursor-pointer hover:border-primary/20 hover:shadow-md transition-all duration-300">
@@ -1173,6 +1174,7 @@
 
         const homeownerToggle = document.getElementById('homeowner-toggle');
         const homeownerKnob = document.getElementById('homeowner-knob');
+        const homeownerLabel = document.getElementById('homeowner-label');
         let homeownerOn = false;
         
         if (homeownerToggle && homeownerKnob) {
@@ -1183,10 +1185,20 @@
                     this.classList.remove('bg-gray-300');
                     this.classList.add('bg-green-500');
                     homeownerKnob.style.transform = 'translateX(24px)';
+                    if (homeownerLabel) {
+                        homeownerLabel.textContent = 'YES';
+                        homeownerLabel.classList.remove('justify-end', 'pr-1.5');
+                        homeownerLabel.classList.add('justify-start', 'pl-1.5');
+                    }
                 } else {
                     this.classList.remove('bg-green-500');
                     this.classList.add('bg-gray-300');
                     homeownerKnob.style.transform = 'translateX(0px)';
+                    if (homeownerLabel) {
+                        homeownerLabel.textContent = 'NO';
+                        homeownerLabel.classList.remove('justify-start', 'pl-1.5');
+                        homeownerLabel.classList.add('justify-end', 'pr-1.5');
+                    }
                 }
                 submission.homeowner = homeownerOn;
             });
