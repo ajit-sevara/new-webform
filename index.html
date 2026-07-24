@@ -1121,7 +1121,15 @@
                     if (icon) { icon.style.fontVariationSettings = "'FILL' 0"; }
 
                     const checkContainer = c.querySelector('.ml-auto');
-                    if (checkContainer) { checkContainer.classList.add('hidden'); }
+                    if (checkContainer) {
+                        checkContainer.classList.add('hidden');
+                        const checkIcon = checkContainer.querySelector('.material-symbols-outlined');
+                        if (checkIcon) {
+                            checkIcon.classList.remove('text-white');
+                            checkIcon.classList.add('text-primary');
+                            checkIcon.style.fontVariationSettings = "'FILL' 0";
+                        }
+                    }
                 });
 
                 this.classList.remove('bg-surface-container', 'border', 'border-outline/10');
@@ -1140,7 +1148,15 @@
                 if (icon) { icon.style.fontVariationSettings = "'FILL' 1"; }
 
                 const checkContainer = this.querySelector('.ml-auto');
-                if (checkContainer) { checkContainer.classList.remove('hidden'); }
+                if (checkContainer) {
+                    checkContainer.classList.remove('hidden');
+                    const checkIcon = checkContainer.querySelector('.material-symbols-outlined');
+                    if (checkIcon) {
+                        checkIcon.classList.remove('text-primary');
+                        checkIcon.classList.add('text-white');
+                        checkIcon.style.fontVariationSettings = "'FILL' 1";
+                    }
+                }
 
                 submission.energy_motivation = this.getAttribute('data-motivation') || '';
             });
