@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.7/build/css/intlTelInput.css" rel="stylesheet">
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -148,12 +147,6 @@
         .input-invalid {
             border-color: #ba1a1a !important;
         }
-        #phone-input-wrap .iti {
-            width: 100%;
-        }
-        #phone-input-wrap .iti__tel-input {
-            width: 100%;
-        }
     </style>
 </head>
 <body class="bg-background font-body text-on-surface antialiased">
@@ -203,8 +196,11 @@
                     <p id="email-error" class="field-error">Please type a valid email address</p>
                 </div>
                 <div>
-                    <div class="relative group" id="phone-input-wrap">
-                        <input id="phone-input" class="w-full pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Mobile Number" type="tel">
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-primary/40 group-focus-within:text-primary transition-colors">phone</span>
+                        </div>
+                        <input id="phone-input" class="w-full pl-14 pr-6 py-5 bg-white border border-primary/10 rounded-xl shadow-[0_4px_20px_rgba(27,48,34,0.05)] text-primary placeholder:text-primary/30 focus:ring-2 focus:ring-primary/5 focus:border-primary/20 transition-all font-medium text-lg" placeholder="Mobile Number" type="tel">
                     </div>
                     <p id="phone-error" class="field-error">Please type a valid mobile number</p>
                 </div>
@@ -259,7 +255,7 @@
     <main class="flex-grow w-full max-w-xl mx-auto px-6 py-8 md:py-12">
         <section class="mb-12">
             <span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-primary/50 mb-4 block">Personalization</span>
-            <h2 class="font-headline text-3xl md:text-4xl font-bold text-primary tracking-tight mb-6">What is motivating your interest in solar panels?</h2>
+            <h2 class="font-headline text-3xl md:text-4xl font-bold text-primary tracking-tight mb-6">What drives your energy transition?</h2>
             <p class="text-on-surface-variant text-lg leading-relaxed max-w-md">Your motivation helps us tailor the architectural solar layout that best fits your lifestyle and financial goals.</p>
         </section>
         <div class="grid grid-cols-1 gap-4 mb-14" id="motivation-cards">
@@ -340,8 +336,7 @@
             </div>
             <button id="homeowner-toggle" type="button" class="relative inline-flex h-8 w-14 flex-shrink-0 cursor-pointer items-center rounded-full focus:outline-none bg-gray-300 transition-colors duration-200 ease-in-out px-1">
                 <span class="sr-only">Toggle Homeownership</span>
-                <span id="homeowner-label" class="absolute inset-0 flex items-center justify-end pr-1.5 text-[9px] font-bold text-white tracking-wide pointer-events-none">YES</span>
-                <span id="homeowner-knob" class="pointer-events-none relative z-10 inline-block h-6 w-6 rounded-full bg-white shadow-lg ring-0 transition-transform duration-200 ease-in-out" style="transform: translateX(0px);"></span>
+                <span id="homeowner-knob" class="pointer-events-none inline-block h-6 w-6 rounded-full bg-white shadow-lg ring-0 transition-transform duration-200 ease-in-out" style="transform: translateX(0px);"></span>
             </button>
         </section>
         <div class="mt-auto flex flex-col items-center gap-6 pb-10">
@@ -420,7 +415,7 @@
                 </div>
                 <div class="pt-8 space-y-6">
                     <button onclick="nextStep()" class="w-full bg-primary text-on-primary py-5 rounded-full font-bold text-base tracking-wide shadow-xl shadow-primary/10 hover:shadow-primary/20 transition-all active:scale-[0.98] duration-200" type="button">
-                        Continue
+                        Analyze Roof Integrity
                     </button>
                 </div>
             </form>
@@ -465,8 +460,8 @@
     <main class="flex-grow w-full max-w-xl mx-auto px-6 pt-12 pb-24">
         <section class="mb-16">
             <span class="font-label text-label-sm uppercase tracking-[0.1em] text-primary/60 mb-4 block font-bold">Ecosystem Enhancements</span>
-            <h2 class="font-headline text-[1.75rem] leading-tight font-bold text-primary tracking-tight mb-6">Are you considering any other services at this time?</h2>
-            <p class="text-on-surface leading-relaxed opacity-70 max-w-md">Let us know how interested/aware you are in these other sustainable technology services?</p>
+            <h2 class="font-headline text-[1.75rem] leading-tight font-bold text-primary tracking-tight mb-6">Refine your energy architecture.</h2>
+            <p class="text-on-surface leading-relaxed opacity-70 max-w-md">Select additional sustainable technologies to integrate into your home's private energy grid.</p>
         </section>
         <div class="space-y-4">
             <label class="group relative flex items-center justify-between p-6 bg-white border border-outline-variant/20 shadow-sm rounded-xl cursor-pointer hover:border-primary/20 hover:shadow-md transition-all duration-300">
@@ -740,7 +735,6 @@
 </div>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEnLuFjSLIooInwk8a2h5-zcmPtnhWSB0&libraries=places"></script>
-<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.7/build/js/intlTelInput.min.js"></script>
 
 <script>
     let currentStep = 1;
@@ -800,9 +794,6 @@
     }
 
     function isValidPhone(value) {
-        if (window.phoneIti) {
-            return document.getElementById('phone-input').value.trim() !== '' && window.phoneIti.isValidNumber();
-        }
         const digitsOnly = value.replace(/\D/g, '');
         return digitsOnly.length === 10;
     }
@@ -830,9 +821,6 @@
         if (!submission.phone || !isValidPhone(submission.phone)) {
             showFieldError('phone-input', 'phone-error');
             isValid = false;
-        } else if (window.phoneIti) {
-            // Store the properly formatted international number (e.g. +14155552671)
-            submission.phone = window.phoneIti.getNumber();
         }
 
         if (!submission.address || !addressSelected) {
@@ -1105,23 +1093,6 @@
         const phoneInput = document.getElementById('phone-input');
         if (phoneInput) {
             phoneInput.addEventListener('input', () => clearFieldError('phone-input', 'phone-error'));
-
-            if (window.intlTelInput) {
-                window.phoneIti = window.intlTelInput(phoneInput, {
-                    initialCountry: 'auto',
-                    separateDialCode: true,
-                    preferredCountries: ['us', 'ca', 'gb', 'in', 'au'],
-                    geoIpLookup: function(callback) {
-                        fetch('https://ipapi.co/json')
-                            .then(res => res.json())
-                            .then(data => callback(data.country_code || 'us'))
-                            .catch(() => callback('us'));
-                    },
-                    utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.7/build/js/utils.js'
-                });
-
-                phoneInput.addEventListener('countrychange', () => clearFieldError('phone-input', 'phone-error'));
-            }
         }
     });
 
@@ -1150,15 +1121,7 @@
                     if (icon) { icon.style.fontVariationSettings = "'FILL' 0"; }
 
                     const checkContainer = c.querySelector('.ml-auto');
-                    if (checkContainer) {
-                        checkContainer.classList.add('hidden');
-                        const checkIcon = checkContainer.querySelector('.material-symbols-outlined');
-                        if (checkIcon) {
-                            checkIcon.classList.remove('text-white');
-                            checkIcon.classList.add('text-primary');
-                            checkIcon.style.fontVariationSettings = "'FILL' 0";
-                        }
-                    }
+                    if (checkContainer) { checkContainer.classList.add('hidden'); }
                 });
 
                 this.classList.remove('bg-surface-container', 'border', 'border-outline/10');
@@ -1177,15 +1140,7 @@
                 if (icon) { icon.style.fontVariationSettings = "'FILL' 1"; }
 
                 const checkContainer = this.querySelector('.ml-auto');
-                if (checkContainer) {
-                    checkContainer.classList.remove('hidden');
-                    const checkIcon = checkContainer.querySelector('.material-symbols-outlined');
-                    if (checkIcon) {
-                        checkIcon.classList.remove('text-primary');
-                        checkIcon.classList.add('text-white');
-                        checkIcon.style.fontVariationSettings = "'FILL' 1";
-                    }
-                }
+                if (checkContainer) { checkContainer.classList.remove('hidden'); }
 
                 submission.energy_motivation = this.getAttribute('data-motivation') || '';
             });
@@ -1202,7 +1157,6 @@
 
         const homeownerToggle = document.getElementById('homeowner-toggle');
         const homeownerKnob = document.getElementById('homeowner-knob');
-        const homeownerLabel = document.getElementById('homeowner-label');
         let homeownerOn = false;
         
         if (homeownerToggle && homeownerKnob) {
@@ -1213,20 +1167,10 @@
                     this.classList.remove('bg-gray-300');
                     this.classList.add('bg-green-500');
                     homeownerKnob.style.transform = 'translateX(24px)';
-                    if (homeownerLabel) {
-                        homeownerLabel.textContent = 'YES';
-                        homeownerLabel.classList.remove('justify-end', 'pr-1.5');
-                        homeownerLabel.classList.add('justify-start', 'pl-1.5');
-                    }
                 } else {
                     this.classList.remove('bg-green-500');
                     this.classList.add('bg-gray-300');
                     homeownerKnob.style.transform = 'translateX(0px)';
-                    if (homeownerLabel) {
-                        homeownerLabel.textContent = 'NO';
-                        homeownerLabel.classList.remove('justify-start', 'pl-1.5');
-                        homeownerLabel.classList.add('justify-end', 'pr-1.5');
-                    }
                 }
                 submission.homeowner = homeownerOn;
             });
